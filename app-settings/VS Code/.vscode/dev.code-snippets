@@ -37,5 +37,13 @@
 			"import \\$appCfg from '@/\\$appCfg'"
 		],
 		"description": "Import $appCfg"
+	},
+	"Import Vue TS": {
+		"scope": "javascript,typescript",
+		"prefix": "#import.vue_ts",
+		"body": [
+			"import { Component, Prop, Vue } from 'vue-property-decorator'"
+		],
+		"description": "Import vue_ts"
 	}
 }
