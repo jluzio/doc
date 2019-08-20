@@ -1,5 +1,6 @@
 {
     "window.zoomLevel": 0,
     "explorer.autoReveal": false,
-    "workbench.editor.enablePreviewFromQuickOpen": false
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "editor.suggestSelection": "recentlyUsedByPrefix"
 }
