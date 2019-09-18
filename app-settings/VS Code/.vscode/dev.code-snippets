@@ -45,5 +45,13 @@
 			"import { Component, Prop, Vue } from 'vue-property-decorator'"
 		],
 		"description": "Import vue_ts"
+	},
+	"Vue TS Component": {
+		"scope": "javascript,typescript",
+		"prefix": "#component.vue_ts",
+		"body": [
+			"import { Component, Prop, Vue } from 'vue-property-decorator'\n\n@Component\nexport default class $0 extends Vue {\n}\n"
+		],
+		"description": "Import vue_ts"
 	}
 }
