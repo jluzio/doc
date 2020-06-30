@@ -1,4 +1,11 @@
 # Useful info
 
+## Tools
+### ConEmu
+### GitBash
+### Cygwin
+### Sdkman
+
 ### Directory Links
 mklink /D <link> <target-directory>
+
