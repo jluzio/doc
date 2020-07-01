@@ -1,11 +1,39 @@
 # Useful info
 
 ## Tools
-### ConEmu
-### GitBash
-### Cygwin
-### Sdkman
+- GitBash
+- Cygwin
+- Sdkman
+- ConEmu
 
-### Directory Links
+### Tools to evaluate:
+- Clink (cmd enhancer)
+
+### Tools with Windows Subsystem for Linux
+- Ubuntu
+
+
+## Directory Links
 mklink /D <link> <target-directory>
+mklink /J <link> <target-directory>
 
+### Force install on other drives with links
+- identify install directories
+- create these on target location
+- use a directory link in default install directories to trick installer to save files on target location
+e.g.:
+mklink /J <link> <target-directory>
+
+
+## Config
+- Default Save Locations: locations for new apps (change to other drive if C has low storage space)
+- Apps & Features
+ - Windows Apps may have the option to move to other drives
+
+## Network config
+- see reserved/excluded port ranges
+netsh interface ipv4 show excludedportrange protocol=tcp
+
+- modify reserved/excluded port ranges
+netsh int ipv4 add excludedportrange protocol=tcp startport=1883 numberofports=1
+netsh int ipv4 del excludedportrange protocol=tcp startport=1883 numberofports=1
