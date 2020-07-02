@@ -25,6 +25,19 @@ e.g.:
 mklink /J <link> <target-directory>
 
 
+## Kill processes
+taskkill /IM "process name" /F
+
+
+## Java
+- remove Path element "C:\Program Files (x86)\Common Files\Oracle\Java\javapath" or similar
+- set JAVA_HOME
+- set PATH += JAVA_HOME\bin
+- close apps that might hold environment references (e.g. IDEs)
+- kill explorer
+- start explorer
+
+
 ## Config
 - Default Save Locations: locations for new apps (change to other drive if C has low storage space)
 - Apps & Features
