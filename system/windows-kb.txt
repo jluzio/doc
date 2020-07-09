@@ -48,5 +48,5 @@ taskkill /IM "process name" /F
 netsh interface ipv4 show excludedportrange protocol=tcp
 
 - modify reserved/excluded port ranges
-netsh int ipv4 add excludedportrange protocol=tcp startport=1883 numberofports=1
-netsh int ipv4 del excludedportrange protocol=tcp startport=1883 numberofports=1
+netsh int ipv4 add excludedportrange protocol=tcp startport=<port> numberofports=1
+netsh int ipv4 del excludedportrange protocol=tcp startport=<port> numberofports=1
