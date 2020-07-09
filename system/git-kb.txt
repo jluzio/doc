@@ -1,0 +1,70 @@
+-- Proxy --
+git config --global http.proxy http://prx.tapnet.tap.pt:8080
+git config --global --unset http.proxy
+
+-- Certificates
+## Git Certificate
+### Method for self signed git repository
+git config --global http.sslCAInfo <cert-file>
+git config --global http."<git-repo>".sslCAInfo <cert-file>
+
+git config --global --unset http.sslCAInfo
+git config --global --unset http."<git-repo>".sslCAInfo
+
+<git-repo>
+ex: https://customgit.com
+<cert-file>
+ex: /d/dev/etc/certificates/custom.crt
+
+Note:
+To not disable all default/system CAs for all domains but only for this one domain use instead:
+- git config --global http."https://repos.sample.com".sslCAInfo /home/javl/git-certs/cert.pem
+and if there are any http urls that get redirected additionally also:
+- git config --global http."http://redirect-source.example.com".sslCAInfo /home/javl/git-certs/cert.pem
+
+
+-- Import docs to a branch in GIT --
+https://stackoverflow.com/questions/13969050/how-to-create-a-new-empty-branch-for-a-new-project/13969482#13969482
+git checkout --orphan <branchname>
+git rm --cached -r .
+git clean -fd
+-OR-
+git checkout --orphan <branchname>
+git reset --hard
+echo dummy > f.txt
+git add -A
+git commit -m init
+git push ...
+
+-- Git clean --
+git clean -fdxX
+f - force
+x - Don’t use the standard ignore rules read, but do still use the ignore rules given with -e options. 
+This allows removing all untracked files, including build products. 
+This can be used (possibly in conjunction with git reset) to create a pristine working directory to test a clean build.
+X - Remove only files ignored by Git
+d - Remove untracked directories in addition to untracked files.
+
+-- Git RAD --
+http.sslVerify = false
+https://stackoverflow.com/a/25917888
+
+-- Git empty dir --
+Add .gitignore file with:
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+
+-- Git merge overwrite --
+git checkout better_branch
+git merge --strategy=ours master    # keep the content of this branch, but record a merge
+git checkout master
+git merge better_branch             # fast-forward master up to the merge
+
+-- Git checkout tags --
+git checkout tags/<tag_id> [-b <new_branch>]
+git checkout tags/jenkins-PRD-TravelOffice-WAS7-44_2019-05-30_1128 -b prd_fix_20190605
+
+-- Links --
+https://github.com/microsoft/Git-Credential-Manager-for-Windows
