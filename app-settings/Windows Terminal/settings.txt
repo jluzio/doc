@@ -1,0 +1,10 @@
+# Git Bash
+Add to settings.json:
+
+            {
+				"guid": "{00000000-0000-0000-ba54-000000000001}",
+				"commandline" : "d:/dev/tools/Git/bin/bash.exe -i -l",
+				"icon" : "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+				"name" : "Bash",
+				"startingDirectory" : "%USERPROFILE%"
+			}
