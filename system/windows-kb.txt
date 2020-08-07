@@ -38,6 +38,14 @@ taskkill /IM "process name" /F
 - start explorer
 
 
+## PowerShell
+### Profile
+- Test-Path $Profile
+- New-Item -Path $Profile -Type File -Force
+- change $Profile target file
+### Source
+. <file.ps1>
+
 ## Config
 - Default Save Locations: locations for new apps (change to other drive if C has low storage space)
 - Apps & Features
