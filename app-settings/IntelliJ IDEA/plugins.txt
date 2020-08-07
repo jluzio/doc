@@ -1,0 +1,15 @@
+# Plugins
+
+- Lombok
+- Rainbow Brackets
+- EduTools
+- Codota
+- String Manipulation
+- Maven Helper
+- Grep Console
+- Sonar Lint
+- CheckStyle-IDEA
+
+- BashSupport
+- Key Promoter X
+- Request Mapper
