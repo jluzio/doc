@@ -1,0 +1,24 @@
+## Settings
+- General
+  - Document List Panel
+    - Show
+- Editing
+  - Enable scrolling beyond last line
+- Language
+  - Tab Settings
+    - Tab size: 2
+      - Replace by space
+
+## Style Configurator
+- Zenburn
+
+## Plugins
+- NppMenuSearch
+- ExtSettings
+- XML Tools
+- JSON Viewer
+
+### Plugin Settings
+- ExtSettings
+  - Cursor
+    - Cursor beyond line endings
