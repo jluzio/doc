@@ -13,3 +13,4 @@
 - BashSupport
 - Key Promoter X
 - Request Mapper
+- MapStruct Support
