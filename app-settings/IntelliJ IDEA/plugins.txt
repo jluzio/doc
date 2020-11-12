@@ -1,16 +1,23 @@
 # Plugins
 
+## Useful
 - Lombok
 - Rainbow Brackets
-- EduTools
-- Codota
-- String Manipulation
+- Spring Assistant
+- MapStruct Support
 - Maven Helper
-- Grep Console
+- Codota
 - Sonar Lint
 - CheckStyle-IDEA
+- EduTools
 
+## Can be useful
+- String Manipulation
+- Grep Console
 - BashSupport
 - Key Promoter X
 - Request Mapper
-- MapStruct Support
+
+## Can be useful someday
+- Spring Tools
+

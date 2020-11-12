@@ -12,6 +12,14 @@
 ### Tools with Windows Subsystem for Linux
 - Ubuntu
 
+https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-260-characters/
+- Enable LongPathsEnabled:
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
+"LongPathsEnabled"=dword:00000001
+- Disable LongPathsEnabled (default):
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
+"LongPathsEnabled"=dword:00000000
+
 
 ## Directory Links
 mklink /D <link> <target-directory>
@@ -37,6 +45,9 @@ taskkill /IM "process name" /F
 - kill explorer
 - start explorer
 
+
+Spring Boot and long classpaths
+- -Dspring-boot.run.fork=false
 
 ## PowerShell
 ### Profile
