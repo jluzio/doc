@@ -69,3 +69,10 @@ netsh interface ipv4 show excludedportrange protocol=tcp
 - modify reserved/excluded port ranges
 netsh int ipv4 add excludedportrange protocol=tcp startport=<port> numberofports=1
 netsh int ipv4 del excludedportrange protocol=tcp startport=<port> numberofports=1
+
+## IntelliJ
+- Lombok & MapStruct workaround
+https://github.com/mplushnikov/lombok-intellij-plugin/issues/952#issuecomment-741821327
+-Djps.track.ap.dependencies=false
+
+Note: MapStruct latest version fixes this issue
