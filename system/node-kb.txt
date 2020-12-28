@@ -2,6 +2,9 @@
 
 
 ## Node Gyp
+https://www.npmjs.com/package/node-gyp
+https://www.npmjs.com/package/windows-build-tools
+
 npm install -g windows-build-tools
 
 - reference
