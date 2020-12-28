@@ -1,3 +1,9 @@
 
 # Password Encryption
 https://maven.apache.org/guides/mini/guide-encryption.html
+
+# Process running
+- Spring Boot process path limit
+Run with
+-Dspring-boot.run.fork=false
+or configure plugin
