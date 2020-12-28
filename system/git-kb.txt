@@ -68,3 +68,9 @@ git checkout tags/jenkins-PRD-TravelOffice-WAS7-44_2019-05-30_1128 -b prd_fix_20
 
 -- Links --
 https://github.com/microsoft/Git-Credential-Manager-for-Windows
+
+-- PR Patch --
+<pr-path>.patch
+https://github.com/_user_/_repo_/pull/11/files
+->
+https://github.com/_user_/_repo_/pull/11.patch
