@@ -7,3 +7,28 @@ https://maven.apache.org/guides/mini/guide-encryption.html
 Run with
 -Dspring-boot.run.fork=false
 or configure plugin
+
+# Unrecognized source folder
+- Maven pom.xml
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>build-helper-maven-plugin</artifactId>
+    <version>1.4</version>
+    <executions>
+        <execution>
+            <id>test</id>
+            <phase>generate-sources</phase>
+            <goals>
+                <goal>add-source</goal>
+            </goals>
+            <configuration>
+                <sources>
+                    <source>${basedir}/target/generated-sources</source>
+                </sources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+- IntelliJ
+Project Structure → Modules → Click the generated-sources folder and make it a sources folder.
