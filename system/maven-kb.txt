@@ -2,6 +2,18 @@
 # Password Encryption
 https://maven.apache.org/guides/mini/guide-encryption.html
 
+
+# test skip flags
+-DskipTests
+compile but don't run, doesn't work with all tests
+
+-Dmaven.test.skip=true
+don't compile and run
+
+-Dmaven.test.skip.exec=true
+compile but don't run, works with all tests
+
+
 # Process running
 - Spring Boot process path limit
 Run with
