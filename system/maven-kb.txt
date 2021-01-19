@@ -13,6 +13,37 @@ don't compile and run
 -Dmaven.test.skip.exec=true
 compile but don't run, works with all tests
 
+# add sources / javadoc
+mvn source:jar package
+mvn javadoc:jar package
+
+Alternative: Configuring plugins in pom to run automatically
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-source-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>attach-sources</id>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-javadoc-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>attach-javadocs</id>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
 
 # Process running
 - Spring Boot process path limit
