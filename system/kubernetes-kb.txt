@@ -1,0 +1,406 @@
+## Cluster Env
+kubectl config get-contexts
+
+
+## Set default context
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+- Validate it
+kubectl config view --minify | grep namespace:
+
+
+## Pod env
+kubectl exec POD env
+
+
+## Pods / Logs
+kubectl get pods
+kubectl logs -f POD --tail=1000
+kubectl logs -f --since=10m <pod>
+kubectl logs -f dbs-payments-paymentutilsservice-845968dd55-9bnr8 --tail=1000
+
+
+## App env
+kubectl get deploy
+kubectl edit deploy <app>
+
+
+## Remote Debug:
+ssh -L <port>:localhost:<port> sysadmin@nbbjumpserver
+ex:
+ssh -L 5007:localhost:5007 sysadmin@nbbjumpserver
+
+kubectl port-forward <pod> <port>:5005
+kubectl port-forward $pod 5007:5005
+
+### Activate debug in infra
+helm files:
+      - identityintegrationservice:
+          database:
+            existingSecret: oracle-secret-identity
+            existingSecretKey: key
+          ingress:
+            enabled: false
+          service:
+            type: LoadBalancer
+			->
+            debug:
+              enabled: true
+			<-
+
+- service / debug / enabled: true
+Funciona apenas para casos sem javaOpts(/extra)?
+- flow: funciona
+- payments: não funciona
+
+# commands
+- kubectl cluster-info
+cluster details
+
+- kubectl get nodes
+all nodes that can be used to host our applications
+
+- kubectl create deployment
+kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
+kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+
+"Let’s deploy our first app on Kubernetes with the kubectl create deployment command. We need to provide the deployment name and app image location (include the full repository url for images hosted outside Docker hub)."
+
+- kubectl get deployments
+To list your deployments use the get deployments
+ -NAME lists the names of the Deployments in the cluster.
+ -READY shows the ratio of CURRENT/DESIRED replicas
+ -UP-TO-DATE displays the number of replicas that have been updated to achieve the desired state.
+ -AVAILABLE displays how many replicas of the application are available to your users.
+ -AGE displays the amount of time that the application has been running.
+
+- kubectl proxy
+Pods that are running inside Kubernetes are running on a private, isolated network. By default they are visible from other pods and services within the same kubernetes cluster, but not outside that network. When we use kubectl, we're interacting through an API endpoint to communicate with our application.
+We will cover other options on how to expose your application outside the kubernetes cluster in Module 4.
+The kubectl command can create a proxy that will forward communications into the cluster-wide, private network. The proxy can be terminated by pressing control-C and won't show any output while its running.
+We will open a second terminal window to run the proxy.
+
+- kubectl logs $pod
+logs for pod. (logs are from stdout)
+
+- kubectl exec $pod env
+We can execute commands directly on the container once the Pod is up and running. For this, we use the exec command and use the name of the Pod as a parameter. 
+Let’s list the environment variables
+
+- kubectl exec -ti $pod bash
+open bash in pod
+
+- kubectl get services
+list services
+
+- kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+expose the deployment as a service
+
+- kubectl get pods -l run=kubernetes-bootcamp
+get pods with label run=<app>
+
+- kubectl get services -l run=kubernetes-bootcamp
+get services with label run=<app>
+
+- kubectl get rs
+Two important columns of this command are:
+ -DESIRED displays the desired number of replicas of the application, which you define when you create the Deployment. This is the desired state.
+ -CURRENT displays how many replicas are currently running.
+ 
+- kubectl scale deployments/kubernetes-bootcamp --replicas=4
+scale to 4 replicas
+
+- kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+update app with new image. 
+terminates old and starts new
+v2 is version tag
+
+
+- kubectl rollout status deployments/kubernetes-bootcamp
+status of rollout update
+
+- kubectl rollout undo deployments/kubernetes-bootcamp
+rollback update
+
+# concepts
+## Kubernetes Pods
+When you created a Deployment in Module 2, Kubernetes created a Pod to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:
+
+Shared storage, as Volumes
+Networking, as a unique cluster IP address
+Information about how to run each container, such as the container image version or specific ports to use
+
+## Nodes
+A Pod always runs on a Node. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master's automatic scheduling takes into account the available resources on each Node.
+
+Every Kubernetes Node runs at least:
+- Kubelet, a process responsible for communication between the Kubernetes Master and the Node; it manages the Pods and the containers running on a machine.
+- A container runtime (like Docker, rkt) responsible for pulling the container image from a registry, unpacking the container, and running the application.
+
+## Troubleshooting
+Troubleshooting with kubectl
+In Module 2, you used Kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl commands:
+
+kubectl get - list resources
+kubectl describe - show detailed information about a resource
+kubectl logs - print the logs from a container in a pod
+kubectl exec - execute a command on a container in a pod
+
+## Pod names
+export POD=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $pod
+
+## Logs
+Anything that the application would normally send to STDOUT becomes logs for the container within the Pod. 
+We can retrieve these logs using the kubectl logs command.
+kubectl logs $pod
+
+## Exec
+kubectl exec $pod env
+
+## Overview of Kubernetes Services
+Kubernetes Pods are mortal. Pods in fact have a lifecycle. When a worker node dies, the Pods running on the Node are also lost. A ReplicaSet might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.
+
+A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML (preferred) or JSON, like all Kubernetes objects. The set of Pods targeted by a Service is usually determined by a LabelSelector (see below for why you might want a Service without including selector in the spec).
+
+Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a type in the ServiceSpec:
+
+ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.
+LoadBalancer - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+ExternalName - Exposes the Service using an arbitrary name (specified by externalName in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of kube-dns.
+
+
+A Service routes traffic across a set of Pods. Services are the abstraction that allow pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) is handled by Kubernetes Services.
+
+Services match a set of Pods using labels and selectors, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:
+
+Designate objects for development, test, and production
+Embed version tags
+Classify an object using tags
+
+## Updating an application
+Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.
+
+
+# scripts
+alias k=kubectl
+_kube_set_pod() { export POD="$1"; }
+_kube_port_fw() { kubectl port-forward ${1:-$POD} ${2:-5007}:5005; }
+_kube_log() { P1=$1; shift; kubectl logs ${P1:-$POD} $@; }
+_kube_log_tail() { P1=$1; shift; kubectl logs ${P1:-$POD} --tail=100 -f $@; }
+_kube_log_less() { P1=$1; shift; kubectl logs ${P1:-$POD} $@ | less -I; }
+_kube_pods() { kubectl get pods $@; }
+_kube_context() { kubectl config get-contexts $@; }
+
+## references
+SHIFT_TEST() { P1=$1; shift; echo $P1; echo "stuff"; echo $@; }
+
+# debug
+ssh -L 5007:localhost:5007 sysadmin@nbbjumpserver
+
+ssh -Nn -D 127.0.0.1:2424 jumpbox
+
+ssh -Nn -D 127.0.0.1:2424 sysadmin@nbbjumpserver
+
+## research
+https://stackoverflow.com/questions/36306904/configure-kubectl-command-to-access-remote-kubernetes-cluster-on-azure
+
+search by label
+POD=$(kubectl get pod -l app=my-app -o jsonpath="{.items[0].metadata.name}")
+use -o name instead of -o jsonpath=...?
+dbs-product-summary-arrangementsintegrationservice
+kubectl get pod -l app=dbs-product-summary-arrangementsintegrationservice -o jsonpath="{.items[0].metadata.name}"
+
+
+## reference by pedromendes
+
+#get all services
+get services -n backbase
+
+#get contexts
+kubectl config get-contexts  -nbackbase
+
+#get all virtual services
+get virtualservices -n backbase
+NAME       GATEWAYS                                                           HOSTS                                          AGE
+edge       [istio-autogenerated-k8s-ingress.istio-system.svc.cluster.local]   [app.dev.bnp.live.backbaseservices.com]        27h
+identity   [istio-autogenerated-k8s-ingress.istio-system.svc.cluster.local]   [identity.dev.bnp.live.backbaseservices.com]
+
+#get pods list
+kubectl get pods --namespace=backbase
+
+#get virtual service 
+kubectl get virtualservice/identity -nbackbase
+
+#get containers 
+kubectl get pods -nbackbase -o jsonpath="{..image}" |\
+tr -s '[[:space:]]' '\n' |\
+sort |\
+uniq -c
+
+kubectl get jobs -nbackbase -o jsonpath="{..image}" |\
+tr -s '[[:space:]]' '\n' |\
+sort |\
+uniq -c
+
+#describe pod
+kubectl describe pod bnp-onboarding-service-bnp-onboarding-service-7db6dbbdc9-vm2wx -nbackbase
+kubectl describe pod identity-devicemanagementservice-7f7c7794-8bfcb -nbackbase
+kubectl describe pod cxs-portal-67b45cb686-22wbs -nbackbase
+
+
+#encode a secret
+echo -n '<secret>' | base64
+
+#get secrets
+kubectl get secrets -n backbase
+kubectl get secret identity -n backbase -ojson  | jq -r '.data ["identity-password"]'  | base64 --decode
+kubectl get secret identity -n backbase -ojson  | jq -r '.data ["identity-username"]'  | base64 --decode
+kubectl get secret identity -n backbase -ojson  | jq -r '.data ["db-cxs-portal"]'  | base64 --decode
+
+kubectl get secret -n backbase osiptel-api-client-secrets -ojson
+kubectl get secret -n backbase telefonica-sms-api-client-secrets -ojson
+kubectl get secret -n backbase identity -ojson
+kubectl get secret -n backbase db-identity-backbaseidentity -ojson 
+kubectl get secret -n backbase database -ojson 
+
+
+
+#check portal logs
+kubectl logs -n backbase -f cxs-portal-5f87984fc6-vxjjg portal
+#check edge logs
+kubectl logs -f ips-edge-edge-5dfcb6bb8d-jhbn7 edge -n backbase
+#check identity logs
+kubectl logs -f identity-backbaseidentity-b45cb6776-2tkxr identity -n backbase
+#check flow logs
+kubectl logs -f  flow-onboarding-us-flow-onboarding-us-7c7c9c49cd-zm2lk flow-onboarding-us -n backbase
+#check service logs
+kubectl --namespace backbase logs -f bnp-transaction-int-service-bnp-transaction-int-service-64qxsnz main
+
+kubectl --namespace backbase logs -f bnp-account-integration-service-bnp-account-integration-segc9tq main
+
+
+#get jobs
+kubectl get jobs -n backbase
+#kill a pod
+kubectl delete pods -n backbase identity-backbaseidentity-56dcbfffb5-n8pxw
+kubectl delete job -n backbase job-initial-user-ingestion-batch-task-2512449827
+
+#check jobs logs
+kubectl logs -f job/cxs-portal-content-base-provision-z9ajn -n backbase
+kubectl logs -f job/bnp-onboarding-service-bnp-onboarding-service-6644fc6656-2s5sg bnp-onboarding-service -n backbase
+kubectl logs -n backbase -f job/job-initial-user-ingestion-batch-task-2512449827
+
+
+#Reapply the content provisioning job [for each runtime]
+kubectl delete helmrelease cxs-portal-content-base -nbackbase
+kubectl delete helmrelease cxs-portal-content-bnp-retail-app -nbackbase
+
+kubectl delete helmrelease identity -nbackbase
+fluxctl sync --k8s-fwd-ns=gitops
+#check the content portal provision job logs to prove that import was finished successfully 
+kubectl logs -nbackbase -f $(kubectl get po -nbackbase -o name | grep cxs-portal-content-base-provision)
+kubectl logs -nbackbase -f $(kubectl get po -nbackbase -o name | grep bnp-transaction-int-service) main
+kubectl logs -nbackbase -f $(kubectl get po -nbackbase -o name | grep bnp-event-listener-service) main
+kubectl logs -nbackbase -f $(kubectl get po -nbackbase -o name | grep bnp-onboarding-service) main
+kubectl logs -nbackbase -f $(kubectl get po -nbackbase -o name | grep identity-backbaseidentity) backbaseidentity
+kubectl logs -nbackbase -f $(kubectl get po -nbackbase -o name | grep cxs-portal) portal
+
+kubectl logs -nbackbase -f  bnp-onboarding-service-bnp-onboarding-service-789f6b498-n72cz main
+
+# check the dbs logs
+kubectl logs -nbackbase -f dbs-product-summary-arrangementmanager-76c56bdfff-f8j72 arrangementmanager
+kubectl logs -nbackbase -f bnp-account-integration-service-bnp-account-integration-seh447g main
+
+
+#Reapply the content provisioning job [for each runtime]
+kubectl delete helmrelease bnp-onboarding-service -nbackbase
+fluxctl sync --k8s-fwd-ns=gitops
+#check the content retail app provision job logs to prove that import was finished successfully 
+$(kubectl get po -nbackbase -o name | grep bnp-onboarding-service)
+
+#get pod yaml config
+kubectl delete helmrelease bnp-transaction-int-service -nbackbase
+kubectl describe helmrelease bnp-transaction-int-service -n backbase
+kubectl describe helmrelease bnp-event-listener-service -n backbase
+kubectl describe helmrelease bnp-onboarding-service -n backbase
+kubectl describe helmrelease bnp-user-profile-service -n backbase
+kubectl describe helmrelease cxs-portal -n backbase
+kubectl describe helmrelease identity -n backbase
+kubectl describe helmrelease jobs/job-initial-user-ingestion-batch-task-2115268370 -n backbase
+kubectl describe helmrelease jobs/cxs-portal-content-bnp-retail-app-provision -n backbase
+
+
+kubectl get po -nbackbase -oyaml cxs-portal-content-bnp-retail-app-provision-9ebcl-588d8
+kubectl get po -nbackbase -oyaml identity-devicemanagementservice-c87f9b4c-pkdcx
+
+# get deployments and delete
+kubectl get deployments -n backbase
+kubectl delete -n backbase deployment pedro-curl
+
+# you can scale them down and then up again if it gets stuck
+kubectl -n gitops scale deploy flux --replicas 0
+kubectl -n gitops scale deploy helm-operator --replicas 0
+
+
+#describe aws ECR images
+aws ecr describe-images --repository-name cxs-portal-content --region us-east-1
+aws ecr describe-images --repository-name bnp-retail-app --region us-east-1
+
+aws ecr describe-images --repository-name identity-integration-service --region us-east-2
+aws ecr describe-images --repository-name identity-fidoservice --region us-east-2
+
+#list ECR images
+aws ecr list-images --repository-name cxs-portal-content --region us-east-2
+aws ecr list-images  --region us-east-2
+
+# run curl in a pod
+kubectl run -n backbase test-pod -i -t --image=alpine sh
+## and then
+apk add curl
+<do stuff>
+# attach it
+kubectl attach test-pod -c test-pod -i -t -nbackbase
+
+kubectl exec --stdin --tty qa-tests-1-qa-tests-1-66d9db6cc6-f4mbd -nbackbase -- /bin/bash
+kubectl exec --stdin --tty qa-tests-2-qa-tests-2-576cf8896-xkz9w -nbackbase -- /bin/bash
+
+rm jmeter.log *.csv *.jtl
+
+# or delete pod
+kubectl delete pod test-pod -n backbase
+kubectl delete pod cxs-portal-5f87984fc6-g47hz -n backbase
+kubectl scale deployments/test-pod --replicas=0 -n backbase
+
+# apply secrets
+kubectl apply -nbackbase -f mysecret.yaml 
+
+# update a job without generating everything again
+## 1. pull the latest .yaml from master (eg baas-bnp-applications-live/runtime/stg/live/jobs/jobs.yaml)
+## 2. edit the fields - increment the id
+## 3. apply
+kubectl apply -nbackbase -f jobs.yaml 
+
+#encode val
+echo -n 'secret' | base64
+
+# port forwarding for database
+## dev
+kubectl run -n backbase --restart=Never --image=alpine/socat portforward -- -d -d tcp-listen:3306,fork,reuseaddr tcp-connect:bnp-dev-us-east-2.cluster-c0i021wymhxb.us-east-2.rds.amazonaws.com:3306
+## stg
+kubectl run -n backbase --restart=Never --image=alpine/socat portforward -- -d -d tcp-listen:3306,fork,reuseaddr tcp-connect:bnp-stg-us-east-2.cluster-ctjzocdnd1pd.us-east-2.rds.amazonaws.com:3306
+## prd
+kubectl run -n backbase --restart=Never --image=alpine/socat portforward -- -d -d tcp-listen:3306,fork,reuseaddr tcp-connect:bnp-prd-us-east-2.cluster-cum0jwwa1ure.us-east-2.rds.amazonaws.com:3306
+# forward
+kubectl port-forward -n backbase portforward 3306:3306
+## cleanup the pod afterwards using:
+kubectl delete pod portforward -n backbase
+
+
+#scale a deployment
+kubectl get deployments -n backbase
+kubectl scale deployments/cxs-portal --replicas=0 -n backbase
+kubectl scale deployments/dbs-access-control-accesscontrol --replicas=3 -n backbase
+kubectl scale deployments/dbs-access-control-usermanager --replicas=3 -n backbase
+
+kubectl scale deployments/bnp-onboarding-service-bnp-onboarding-service --replicas=3 -n backbase
