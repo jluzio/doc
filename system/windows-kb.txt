@@ -22,8 +22,12 @@ https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-2
 
 
 ## Directory Links
+- cmd:
 mklink /D <link> <target-directory>
 mklink /J <link> <target-directory>
+- powershell:
+New-Item -Path <link> -ItemType SymbolicLink -Target <target>
+
 
 ### Force install on other drives with links
 - identify install directories
