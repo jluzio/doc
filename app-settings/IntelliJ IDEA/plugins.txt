@@ -13,6 +13,7 @@
 
 ## Can be useful
 - String Manipulation
+- Swagger
 - Grep Console
 - BashSupport
 - Key Promoter X
