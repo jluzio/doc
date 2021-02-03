@@ -1,0 +1,7 @@
+alias setup-bnp="source setup-bnp.sh"
+
+alias k=kubectl
+complete -F __start_kubectl k
+
+alias kbb="k --namespace=backbase"
+complete -F __start_kubectl kbb
