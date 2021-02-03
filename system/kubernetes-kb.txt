@@ -396,6 +396,11 @@ kubectl port-forward -n backbase portforward 3306:3306
 ## cleanup the pod afterwards using:
 kubectl delete pod portforward -n backbase
 
+# script port-forward
+pf_pod=portforward-joaolu
+pf_target=bnp-comms-outbound-int-service:8080
+k run --restart=Never --image=alpine/socat $pf_pod -- -d -d tcp-listen:8080,fork,reuseaddr tcp-connect:$pf_target
+k port-forward $pf_pod 9999:8080
 
 #scale a deployment
 kubectl get deployments -n backbase
