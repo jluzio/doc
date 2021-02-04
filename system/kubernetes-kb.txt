@@ -409,3 +409,12 @@ kubectl scale deployments/dbs-access-control-accesscontrol --replicas=3 -n backb
 kubectl scale deployments/dbs-access-control-usermanager --replicas=3 -n backbase
 
 kubectl scale deployments/bnp-onboarding-service-bnp-onboarding-service --replicas=3 -n backbase
+
+# deployment management
+dep=bnp-cardless-withdrawal-service-bnp-cardless-withdrawal-service
+rev=8
+k rollout history deployment $dep
+k rollout history deployment $dep --revision=$rev
+k rollout undo deployment $dep
+k rollout undo deployment $dep --to-revision=$rev
+k edit deployments.apps $dep
