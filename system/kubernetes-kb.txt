@@ -1,3 +1,7 @@
+## References
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+https://unofficial-kubernetes.readthedocs.io/en/latest/
+
 ## Cluster Env
 kubectl config get-contexts
 
