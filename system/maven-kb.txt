@@ -13,6 +13,13 @@ don't compile and run
 -Dmaven.test.skip.exec=true
 compile but don't run, works with all tests
 
+
+# versions
+mvn versions:set -DnewVersion=1.0.9 -DgroupId=* -DartifactId=*
+mvn versions:set -DnewVersion=1.0.9 -DgroupId=* -DartifactId=* -DoldVersion=*
+mvn versions:revert
+
+
 # add sources / javadoc
 mvn source:jar package
 mvn javadoc:jar package
@@ -45,11 +52,13 @@ Alternative: Configuring plugins in pom to run automatically
   </executions>
 </plugin>
 
+
 # Process running
 - Spring Boot process path limit
 Run with
 -Dspring-boot.run.fork=false
 or configure plugin
+
 
 # Unrecognized source folder
 - Maven pom.xml
