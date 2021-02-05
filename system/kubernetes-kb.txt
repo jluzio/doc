@@ -400,12 +400,6 @@ kubectl port-forward -n backbase portforward 3306:3306
 ## cleanup the pod afterwards using:
 kubectl delete pod portforward -n backbase
 
-# script port-forward
-pf_pod=portforward-joaolu
-pf_target=bnp-comms-outbound-int-service:8080
-k run --restart=Never --image=alpine/socat $pf_pod -- -d -d tcp-listen:8080,fork,reuseaddr tcp-connect:$pf_target
-k port-forward $pf_pod 9999:8080
-
 #scale a deployment
 kubectl get deployments -n backbase
 kubectl scale deployments/cxs-portal --replicas=0 -n backbase
@@ -413,6 +407,23 @@ kubectl scale deployments/dbs-access-control-accesscontrol --replicas=3 -n backb
 kubectl scale deployments/dbs-access-control-usermanager --replicas=3 -n backbase
 
 kubectl scale deployments/bnp-onboarding-service-bnp-onboarding-service --replicas=3 -n backbase
+
+#ref port-forward
+pf_pod=portforward-joaolu
+pf_target=bnp-comms-outbound-int-service:8080
+k run --restart=Never --image=alpine/socat $pf_pod -- -d -d tcp-listen:8080,fork,reuseaddr tcp-connect:$pf_target
+k port-forward $pf_pod 9999:8080
+
+#ref create-pod
+pod=test-pod
+
+## create
+k run $pod -it --image=alpine -- sh
+## commands
+apk add curl
+<do stuff>
+## attach
+k attach $pod -c $pod -it
 
 # deployment management
 dep=bnp-cardless-withdrawal-service-bnp-cardless-withdrawal-service
