@@ -1,0 +1,5 @@
+# Keycloak
+
+## Import/Export
+- export a realm in a environment
+- create a environment locally, then select import file
