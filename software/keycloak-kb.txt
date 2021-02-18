@@ -3,3 +3,25 @@
 ## Import/Export
 - export a realm in a environment
 - create a environment locally, then select import file
+
+## redirect_uri
+check "Valid Redirect URIs" on used client and use a valid one
+
+## postman
+{{callback-url}}
+{{auth-url}}
+{{access-token-url}}
+{{client-id-web}}
+{{client-secret-web}}
+
+(secret is "" if client is public)
+
+auth-url: {{auth-endpoint-url}}/auth/realms/bnp/protocol/openid-connect/auth
+access-token-url: {{auth-endpoint-url}}/auth/realms/bnp/protocol/openid-connect/token
+client-id-web: bb-web-client
+client-secret-web: 
+client-id-mobile: bb-mobile-client
+client-secret-mobile: 
+auth-endpoint-url: http://localhost:8180
+callback-url: https://app.dev.bnp.live.backbaseservices.com/bnp-retail-app/
+api-endpoint: http://localhost:8080/api
