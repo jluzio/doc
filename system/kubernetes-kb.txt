@@ -398,7 +398,7 @@ db_uri=bnp-stg-us-east-2.cluster-ctjzocdnd1pd.us-east-2.rds.amazonaws.com:3306
 ## prd
 db_uri=bnp-prd-us-east-2.cluster-cum0jwwa1ure.us-east-2.rds.amazonaws.com:3306
 
-db_pod=portfoward
+db_pod=mysql
 kubectl run --restart=Never --image=alpine/socat $db_pod -- -d tcp-listen:3306,fork,reuseaddr tcp-connect:$db_uri
 kubectl port-forward $db_pod 3306:3306
 
