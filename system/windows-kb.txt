@@ -9,6 +9,7 @@
 
 ### Chocolatey
 - gsudo: windows version of sudo
+https://github.com/gerardog/gsudo
 
 ### Tools to evaluate:
 - Clink (cmd enhancer)
