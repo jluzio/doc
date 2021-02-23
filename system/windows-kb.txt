@@ -5,6 +5,10 @@
 - Cygwin
 - Sdkman
 - ConEmu
+- Chocolatey
+
+### Chocolatey
+- gsudo: windows version of sudo
 
 ### Tools to evaluate:
 - Clink (cmd enhancer)

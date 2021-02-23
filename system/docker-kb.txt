@@ -14,3 +14,8 @@ JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=
 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
 > JDK 9 or later
 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
+
+- Issues
+https://forums.docker.com/t/port-mappings-are-not-released/10565/21
+https://stackoverflow.com/questions/40159468/docker-does-not-release-ports-after-stop-and-remove-all-container
