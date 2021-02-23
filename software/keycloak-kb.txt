@@ -25,3 +25,9 @@ client-secret-mobile:
 auth-endpoint-url: http://localhost:8180
 callback-url: https://app.dev.bnp.live.backbaseservices.com/bnp-retail-app/
 api-endpoint: http://localhost:8080/api
+
+# Quarkus
+https://quarkus.io/guides/logging
+- Using env
+QUARKUS_LOG_LEVEL: "INFO"
+quarkus.log.category."org.keycloak.connections.jpa.updater.liquibase".level: "DEBUG"
