@@ -400,7 +400,7 @@ db_uri=bnp-prd-us-east-2.cluster-cum0jwwa1ure.us-east-2.rds.amazonaws.com:3306
 
 db_pod=mysql
 kubectl run --restart=Never --image=alpine/socat $db_pod -- -d tcp-listen:3306,fork,reuseaddr tcp-connect:$db_uri
-kubectl port-forward $db_pod 3306:3306
+kubectl port-forward $db_pod 13306:3306
 
 # forward
 ## cleanup the pod afterwards using:
@@ -416,8 +416,8 @@ kubectl scale deployments/bnp-onboarding-service-bnp-onboarding-service --replic
 
 #ref port-forward
 pf_pod=portforward-joaolu
-pf_target=bnp-comms-outbound-int-service:8080
-k run --restart=Never --image=alpine/socat $pf_pod -- -d -d tcp-listen:8080,fork,reuseaddr tcp-connect:$pf_target
+pf_target=identity-backbaseidentity:8080
+k run --restart=Never --image=alpine/socat $pf_pod -- -d tcp-listen:8080,fork,reuseaddr tcp-connect:$pf_target
 k port-forward $pf_pod 9999:8080
 
 #ref create-pod
