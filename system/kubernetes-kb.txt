@@ -38,6 +38,7 @@ ssh -L 5007:localhost:5007 sysadmin@nbbjumpserver
 kubectl port-forward <pod> <port>:5005
 kubectl port-forward $pod 5007:5005
 
+
 ### Activate debug in infra
 helm files:
       - identityintegrationservice:
@@ -120,31 +121,11 @@ update app with new image.
 terminates old and starts new
 v2 is version tag
 
-
 - kubectl rollout status deployments/kubernetes-bootcamp
 status of rollout update
 
 - kubectl rollout undo deployments/kubernetes-bootcamp
 rollback update
-
-# concepts
-## Kubernetes Pods
-When you created a Deployment in Module 2, Kubernetes created a Pod to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:
-
-Shared storage, as Volumes
-Networking, as a unique cluster IP address
-Information about how to run each container, such as the container image version or specific ports to use
-
-## Nodes
-A Pod always runs on a Node. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master's automatic scheduling takes into account the available resources on each Node.
-
-Every Kubernetes Node runs at least:
-- Kubelet, a process responsible for communication between the Kubernetes Master and the Node; it manages the Pods and the containers running on a machine.
-- A container runtime (like Docker, rkt) responsible for pulling the container image from a registry, unpacking the container, and running the application.
-
-## Troubleshooting
-Troubleshooting with kubectl
-In Module 2, you used Kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl commands:
 
 kubectl get - list resources
 kubectl describe - show detailed information about a resource
@@ -188,26 +169,6 @@ Classify an object using tags
 Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.
 
 
-# scripts
-alias k=kubectl
-_kube_set_pod() { export POD="$1"; }
-_kube_port_fw() { kubectl port-forward ${1:-$POD} ${2:-5007}:5005; }
-_kube_log() { P1=$1; shift; kubectl logs ${P1:-$POD} $@; }
-_kube_log_tail() { P1=$1; shift; kubectl logs ${P1:-$POD} --tail=100 -f $@; }
-_kube_log_less() { P1=$1; shift; kubectl logs ${P1:-$POD} $@ | less -I; }
-_kube_pods() { kubectl get pods $@; }
-_kube_context() { kubectl config get-contexts $@; }
-
-## references
-SHIFT_TEST() { P1=$1; shift; echo $P1; echo "stuff"; echo $@; }
-
-# debug
-ssh -L 5007:localhost:5007 sysadmin@nbbjumpserver
-
-ssh -Nn -D 127.0.0.1:2424 jumpbox
-
-ssh -Nn -D 127.0.0.1:2424 sysadmin@nbbjumpserver
-
 ## research
 https://stackoverflow.com/questions/36306904/configure-kubectl-command-to-access-remote-kubernetes-cluster-on-azure
 
@@ -221,7 +182,7 @@ kubectl get pod -l app=dbs-product-summary-arrangementsintegrationservice -o jso
 ## reference by pedromendes
 
 #get all services
-get services
+kubectl get services
 
 #get contexts
 kubectl config get-contexts 
@@ -253,7 +214,6 @@ uniq -c
 kubectl describe pod bnp-onboarding-service-bnp-onboarding-service-7db6dbbdc9-vm2wx
 kubectl describe pod identity-devicemanagementservice-7f7c7794-8bfcb
 kubectl describe pod cxs-portal-67b45cb686-22wbs
-
 
 #encode a secret
 echo -n '<secret>' | base64
@@ -439,3 +399,13 @@ k rollout history deployment $dep --revision=$rev
 k rollout undo deployment $dep
 k rollout undo deployment $dep --to-revision=$rev
 k edit deployments.apps $dep
+
+
+# Helm
+helm list
+helm rollback <name>
+
+## Fixing failed helm deployment
+https://docs.fluxcd.io/projects/helm-operator/en/stable/helmrelease-guide/reconciliation-and-upgrades/
+helm list
+helm rollback <name>
