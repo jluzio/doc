@@ -23,3 +23,7 @@ https://stackoverflow.com/questions/40159468/docker-does-not-release-ports-after
 - Pull images
 docker pull <image-id>
 image-id: can be seen from Image/Image ID in Kubernetes (kubectl describe <pod>)
+
+- Inspect
+docker image inspect <image-id>
+image-id: see in "docker images" / docker dashboard
