@@ -13,6 +13,9 @@ kubectl config view --minify | grep namespace:
 
 Otherwise, commands will have to use "-n <ns>"
 
+## kubectl debug
+https://github.com/aylei/kubectl-debug#quick-start
+
 
 ## Pod env
 kubectl exec POD env

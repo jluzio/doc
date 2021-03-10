@@ -19,3 +19,7 @@ JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=
 - Issues
 https://forums.docker.com/t/port-mappings-are-not-released/10565/21
 https://stackoverflow.com/questions/40159468/docker-does-not-release-ports-after-stop-and-remove-all-container
+
+- Pull images
+docker pull <image-id>
+image-id: can be seen from Image/Image ID in Kubernetes (kubectl describe <pod>)
