@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/scop/bash-completion/master/bash_completion

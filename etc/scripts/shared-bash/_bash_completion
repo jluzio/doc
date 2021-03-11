@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# completions
+completions_dir=/usr/share/bash-completion/completions
+if [[ -d $completions_dir && -r $completions_dir && -x $completions_dir ]]; then
+  for file in "$completions_dir"/*; do
+    [[ -f $file && -r $file ]] && . "$file"
+  done
+fi

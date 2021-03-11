@@ -1,5 +1,7 @@
 alias setup-bnp="source ~/etc/scripts/baas/bb-bnp/setup-bnp.sh"
 
+alias lessis="less -IS"
+
 alias k=kubectl
 complete -F _complete_alias k
 
