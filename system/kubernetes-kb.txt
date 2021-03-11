@@ -354,12 +354,8 @@ kubectl apply -f jobs.yaml
 echo -n 'secret' | base64
 
 # port forwarding for database
-## dev
-db_uri=bnp-dev-us-east-2.cluster-c0i021wymhxb.us-east-2.rds.amazonaws.com:3306
-## stg
-db_uri=bnp-stg-us-east-2.cluster-ctjzocdnd1pd.us-east-2.rds.amazonaws.com:3306
-## prd
-db_uri=bnp-prd-us-east-2.cluster-cum0jwwa1ure.us-east-2.rds.amazonaws.com:3306
+define var db_uri
+then:
 
 db_pod=mysql
 kubectl run --restart=Never --image=alpine/socat $db_pod -- -d tcp-listen:3306,fork,reuseaddr tcp-connect:$db_uri
