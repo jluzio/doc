@@ -5,8 +5,10 @@ https://unofficial-kubernetes.readthedocs.io/en/latest/
 ## Cluster Env
 kubectl config get-contexts
 
+## Set rename context
+kubectl config rename-context <old-context> <new-context>
 
-## Set default context
+## Set default namespace for context
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
 - Validate it
 kubectl config view --minify | grep namespace:
