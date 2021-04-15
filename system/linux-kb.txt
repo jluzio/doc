@@ -2,6 +2,7 @@
 
 # Bash reverse-i-search
 CTRL-R: searchs history of commands
+After typing filter, CTRL-R goes to next match
 
 # copy less buffer
 - Type | (that's a pipe character) to indicate that you want to output to a pipe
