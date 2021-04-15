@@ -401,6 +401,22 @@ k rollout undo deployment $dep
 k rollout undo deployment $dep --to-revision=$rev
 k edit deployments.apps $dep
 
+# recreate schemas example
+for secret_name in db-dbs-access-control-accesscontrol db-dbs-access-control-usermanager db-dbs-access-control-userprofilemanager db-dbs-product-summary-arrangementmanager
+do
+    DB_NAME=$(kubectl get secret $secret_name -o yaml | awk -F: -v key="  db_name"  '$1==key {print $2}' | base64 --decode)
+    DB_USERNAME=$(kubectl get secret $secret_name -o yaml | awk -F: -v key="  db_username"  '$1==key {print $2}' | base64 --decode)
+    DB_PASSWORD=$(kubectl get secret $secret_name -o yaml | awk -F: -v key="  db_password" '$1==key {print $2}' | base64 --decode)
+    echo "Re-Creating DB SCHEMA $DB_NAME"
+    kubectl run -n backbase mysql -i -t --image=alpine -- /bin/sh -c 'apk add mysql-client; mysql -u'$DB_USERNAME' -h ref-ds-eu-central-1.cluster-ckp12olmvmej.eu-central-1.rds.amazonaws.com -p'$DB_PASSWORD' -Bse "DROP SCHEMA \`'$DB_NAME'\`; commit; CREATE SCHEMA \`'$DB_NAME'\`; commit;" '
+    kubectl delete pod mysql -n backbase
+done
+
+kubectl delete pod $(kubectl get pods | grep ^dbs-access-control-accesscontrol -m1| awk '{print$1}')
+kubectl delete pod $(kubectl get pods | grep ^dbs-access-control-userprofilemanager -m1| awk '{print$1}')
+kubectl delete pod $(kubectl get pods | grep ^dbs-access-control-usermanager -m1| awk '{print$1}')
+kubectl delete pod $(kubectl get pods | grep ^dbs-product-summary-arrangementmanager -m1| awk '{print$1}')
+
 
 # Helm
 helm list
