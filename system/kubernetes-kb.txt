@@ -44,11 +44,15 @@ kubectl port-forward <pod> <port>:5005
 kubectl port-forward $pod 5007:5005
 
 
-## Kubernetes on Jump server using sshuttle
-- copy .kube/config to local machine
+## Kubernetes local config
+- create .kube/config in local machine
 export KUBECONFIG=~/.kube/<cfg>/config
+<generate config into $KUBECONFIG>
+- OR -
 mkdir -p $(dirname $KUBECONFIG) && rsync -r <user>@<jumpserver>:.kube/config $KUBECONFIG
 
+
+## Kubernetes on Jump server using sshuttle
 - sshuttle - transparent proxy meets vpn meets ssh
 https://github.com/sshuttle/sshuttle
 https://sshuttle.readthedocs.io/en/stable/overview.html
@@ -56,15 +60,10 @@ sshuttle --dns -r <user>@<jumpserver> -x <jumpserver> 0.0.0.0/0
 
 - kubectl with selected KUBECONFIG
 export KUBECONFIG=~/.kube/<cfg>/config
-
 kubectl get pods
 
 
 ## Kubernetes on Jump server using ssh port forward
-- copy .kube/config to local machine
-export KUBECONFIG=~/.kube/<cfg>/config
-mkdir -p $(dirname $KUBECONFIG) && rsync -r <user>@<jumpserver>:.kube/config $KUBECONFIG
-
 - ssh port forward
 ssh -Nn -D :<tunnel_port> <user>@<jumpserver>
 
@@ -72,8 +71,21 @@ ssh -Nn -D :<tunnel_port> <user>@<jumpserver>
 export KUBECONFIG=~/.kube/<cfg>/config
 export http_proxy=socks5://localhost:<tunnel_port>
 export https_proxy=$https_proxy
-
 kubectl get pods
+
+
+## Pivotal TKGI/PKS cli
+(tkgi: newer, pks: maintenance mode?)
+https://docs.pivotal.io/tkgi/1-10/installing-cli.html
+tkgi:
+https://network.pivotal.io/products/pivotal-container-service/#/releases/863377/file_groups/3393
+pks:
+https://network.pivotal.io/products/pivotal-container-service/#/releases/863377/file_groups/3392
+
+
+export KUBECONFIG=~/.kube/<cfg>/config
+echo $pass | tkgi login -a <server> -u <user> -k
+echo "<pass>" | pks get-credentials <env>
 
 
 ### Activate debug in infra

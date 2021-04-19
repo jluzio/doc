@@ -17,3 +17,9 @@ sshuttle --dns -r <user>@<server> -x <server> 0.0.0.0/0
 
 # SSH Port Forward
 ssh -Nn -D :<port> <user>@<server>
+
+# SSH login using public key
+https://kb.iu.edu/d/aews
+- ssh-keygen -t rsa
+- append ~/.ssh/id_rsa.pub into <server>/.ssh/authorized_keys
+cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
