@@ -44,6 +44,38 @@ kubectl port-forward <pod> <port>:5005
 kubectl port-forward $pod 5007:5005
 
 
+## Kubernetes on Jump server using sshuttle
+- copy .kube/config to local machine
+export KUBECONFIG=~/.kube/<cfg>/config
+mkdir -p $(dirname $KUBECONFIG) && rsync -r <user>@<jumpserver>:.kube/config $KUBECONFIG
+
+- sshuttle - transparent proxy meets vpn meets ssh
+https://github.com/sshuttle/sshuttle
+https://sshuttle.readthedocs.io/en/stable/overview.html
+sshuttle --dns -r <user>@<jumpserver> -x <jumpserver> 0.0.0.0/0
+
+- kubectl with selected KUBECONFIG
+export KUBECONFIG=~/.kube/<cfg>/config
+
+kubectl get pods
+
+
+## Kubernetes on Jump server using ssh port forward
+- copy .kube/config to local machine
+export KUBECONFIG=~/.kube/<cfg>/config
+mkdir -p $(dirname $KUBECONFIG) && rsync -r <user>@<jumpserver>:.kube/config $KUBECONFIG
+
+- ssh port forward
+ssh -Nn -D :<tunnel_port> <user>@<jumpserver>
+
+- kubectl with selected KUBECONFIG
+export KUBECONFIG=~/.kube/<cfg>/config
+export http_proxy=socks5://localhost:<tunnel_port>
+export https_proxy=$https_proxy
+
+kubectl get pods
+
+
 ### Activate debug in infra
 helm files:
       - identityintegrationservice:

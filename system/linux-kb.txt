@@ -9,3 +9,11 @@ After typing filter, CTRL-R goes to next match
 - Type $ to indicate that you want the output content to go to the end of the file
 - Type dd of=/path/to/new/file and press Enter
 - The dd command will take the piped data and save it to the file passed to the of= argument.
+
+# sshuttle - transparent proxy meets vpn meets ssh
+https://github.com/sshuttle/sshuttle
+https://sshuttle.readthedocs.io/en/stable/overview.html
+sshuttle --dns -r <user>@<server> -x <server> 0.0.0.0/0
+
+# SSH Port Forward
+ssh -Nn -D :<port> <user>@<server>
