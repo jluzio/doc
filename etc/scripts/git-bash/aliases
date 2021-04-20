@@ -1,13 +1,22 @@
-alias setup-bnp="source setup-bnp.sh"
+#!/bin/bash
 
 alias lessis="less -IS"
 
 alias k=kubectl
-complete -F __start_kubectl k
+complete -F _complete_alias k
+#alias kbb="k --namespace=backbase"
+#complete -F _complete_alias kbb
 
-alias kbb="k --namespace=backbase"
-complete -F __start_kubectl kbb
+# kubernetes env configs
+alias setup-bnp="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp.sh"
+alias setup-bnp-kubeconfig="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp-kubeconfig.sh"
+alias setup-bnp-docker-ecr-comm="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp-docker-ecr-comm.sh"
 
+alias setup-nbb="source $SCRIPT_HOME/kube/bring-nbb/setup-nbb.sh"
+alias setup-nbb-proxyconfig="$SCRIPT_HOME/kube/bring-nbb/setup-nbb-proxyconfig.sh"
+alias setup-nbb-kubeconfig="$SCRIPT_HOME/kube/bring-nbb/setup-nbb-kubeconfig.sh"
+
+# java env configs
 JAVA_CANDIDATES_FOLDER="/d/dev/tools/.sdkman/candidates/java"
 alias java-8="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/8.0.252.hs-adpt"
 alias java-default="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/jdk-default"

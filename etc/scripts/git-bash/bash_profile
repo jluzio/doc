@@ -2,10 +2,11 @@
 script_dir="$( dirname "${BASH_SOURCE[0]}" )"
 shared_bash_dir=$script_dir/../shared-bash
 
-#export PATH=$PATH:/d/dev/etc/scripts/baas/bb-bnp
+#export PATH=$PATH
 export DEV_SRC=/d/dev/source
 export DEV_DOC=/d/dev/doc
 export DEV_HOME=/d/home
+export SCRIPT_HOME=/d/dev/etc/scripts
 #export KUBE_EDITOR=nano
 export KUBE_EDITOR="'`cygpath -u "C:\Program Files\Notepad++\notepad++.exe"`'"
 

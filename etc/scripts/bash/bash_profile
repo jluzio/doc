@@ -6,6 +6,7 @@ shared_bash_dir=$script_dir/../shared-bash
 export DEV_SRC=/mnt/d/dev/source
 export DEV_DOC=/mnt/d/dev/doc
 export DEV_HOME=/mnt/d/home
+export SCRIPT_HOME=/mnt/d/dev/etc/scripts
 export KUBE_EDITOR=nano
 
 #source $shared_bash_dir/bash_completion
