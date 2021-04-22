@@ -18,5 +18,6 @@ alias setup-nbb-kubeconfig="$SCRIPT_HOME/kube/bring-nbb/setup-nbb-kubeconfig.sh"
 
 # java env configs
 JAVA_CANDIDATES_FOLDER="/d/dev/tools/.sdkman/candidates/java"
-alias java-8="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/8.0.252.hs-adpt"
 alias java-default="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/jdk-default"
+alias java-8="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/8.0.252.hs-adpt"
+alias java-11="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/11.0.10.hs-adpt"
