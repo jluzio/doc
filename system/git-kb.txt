@@ -35,6 +35,12 @@ Add .gitignore file with:
 !.gitignore
 
 
+# Create branch with first commit
+git checkout -b main $(git rev-list --max-parents=0 HEAD)
+git reset --hard
+git push --set-upstream origin main
+
+
 # Git merge overwrite
 git checkout better_branch
 git merge --strategy=ours master    # keep the content of this branch, but record a merge
