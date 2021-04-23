@@ -3,9 +3,9 @@
 alias lessis="less -IS"
 
 alias k=kubectl
-complete -F _complete_alias k
+complete -F __start_kubectl k
 #alias kbb="k --namespace=backbase"
-#complete -F _complete_alias kbb
+#complete -F __start_kubectl kbb
 
 # kubernetes env configs
 alias setup-bnp="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp.sh"
