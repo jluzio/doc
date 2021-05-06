@@ -23,3 +23,6 @@ https://kb.iu.edu/d/aews
 - ssh-keygen -t rsa
 - append ~/.ssh/id_rsa.pub into <server>/.ssh/authorized_keys
 cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
+
+# Homebrew
+https://brew.sh/

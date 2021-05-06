@@ -79,6 +79,14 @@ netsh interface ipv4 show excludedportrange protocol=tcp
 netsh int ipv4 add excludedportrange protocol=tcp startport=<port> numberofports=1
 netsh int ipv4 del excludedportrange protocol=tcp startport=<port> numberofports=1
 
+- apps that reserve ports
+https://superuser.com/questions/1579346/many-excludedportranges-how-to-delete-hyper-v-is-disabled/1610009#1610009
+This is often caused by the Windows NAT Driver (winnat), stopping and restarting that service may resolve the issue.
+net stop winnat
+docker start ...
+net start winnat
+
+
 ## IntelliJ
 - Lombok & MapStruct workaround
 https://github.com/mplushnikov/lombok-intellij-plugin/issues/952#issuecomment-741821327
