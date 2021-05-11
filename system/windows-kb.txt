@@ -86,6 +86,12 @@ net stop winnat
 docker start ...
 net start winnat
 
+see also:
+(IntelliJ)
+https://youtrack.jetbrains.com/issue/IDEA-238995?_ga=2.91342814.590959948.1620758678-338863376.1610549135
+net stop winnat
+net start winnat
+
 
 ## IntelliJ
 - Lombok & MapStruct workaround
