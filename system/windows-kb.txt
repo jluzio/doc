@@ -135,3 +135,6 @@ https://github.com/mplushnikov/lombok-intellij-plugin/issues/952#issuecomment-74
     </annotationProcessorPaths>
   </configuration>
 </plugin>
+
+# hosts
+C:\Windows\System32\Drivers\etc\hosts

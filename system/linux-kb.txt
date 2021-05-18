@@ -26,3 +26,12 @@ cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
 
 # Homebrew
 https://brew.sh/
+
+# SSH tunnels
+ssh_tunnel=[<bind_address>:]<bind_port>:<host>:<host_port>
+e.g.: 8443:10.104.168.22:8443
+
+- background process
+ssh -fNL $ssh_tunnel <user>@<server>
+- background in shell
+ssh -NnL $ssh_tunnel <user>@<server>
