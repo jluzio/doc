@@ -368,22 +368,20 @@ aws ecr list-images --repository-name cxs-portal-content --region us-east-2
 aws ecr list-images  --region us-east-2
 
 # run curl in a pod
-kubectl run test-pod -i -t --image=alpine sh
-## and then
-apk add curl
-<do stuff>
-# attach it
-kubectl attach test-pod -c test-pod -i -t
+- run image
+  kubectl run test-pod -it --image=alpine -- sh
+  apk add curl
+or
+  kubectl run test-pod -it --image=dwdraju/alpine-curl-jq -- sh
 
-kubectl exec --stdin --tty qa-tests-1-qa-tests-1-66d9db6cc6-f4mbd -- /bin/bash
-kubectl exec --stdin --tty qa-tests-2-qa-tests-2-576cf8896-xkz9w -- /bin/bash
+- attach it after closing
+kubectl attach test-pod -c test-pod -it
 
-rm jmeter.log *.csv *.jtl
-
-# or delete pod
+- delete pod / deployment
 kubectl delete pod test-pod
-kubectl delete pod cxs-portal-5f87984fc6-g47hz
-kubectl scale deployments/test-pod --replicas=0
+or
+kubectl delete deployment test-pod
+
 
 # apply secrets
 kubectl apply -f mysecret.yaml 

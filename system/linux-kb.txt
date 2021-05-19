@@ -35,3 +35,13 @@ e.g.: 8443:10.104.168.22:8443
 ssh -fNL $ssh_tunnel <user>@<server>
 - background in shell
 ssh -NnL $ssh_tunnel <user>@<server>
+
+
+# Get Certificates
+host=dev.example.org
+host_port=443
+echo | openssl s_client -showcerts -servername $host -connect $host:$host_port 2>/dev/null | openssl x509 -inform pem -noout -text > ${host}_cert.txt
+
+
+# Replace text in file
+sed -i 's/search_string/replace_string/' filename
