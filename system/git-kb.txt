@@ -13,6 +13,10 @@ You can circumvent this by using another Git client on Windows or set core.longp
 git config --system core.longpaths true
 
 
+# Edit config
+git config --edit
+
+
 # Git clean
 git clean -fdxX
 f - force
