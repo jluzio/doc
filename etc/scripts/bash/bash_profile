@@ -12,3 +12,6 @@ export KUBE_EDITOR=nano
 #source $shared_bash_dir/bash_completion
 source ~/.bash_completion.d/complete_alias
 source $script_dir/aliases
+
+# bash expand env variables with directory paths
+shopt -s direxpand

@@ -60,27 +60,36 @@ Run with
 or configure plugin
 
 
+# generate-sources
+Generated sources in the directory ${project.build.directory}/generate-sources/<src_root> are recognized in Maven and IDEs (IntelliJ)
+If using a different one, see build-helper-maven-plugin.
+
+
 # Unrecognized source folder
 - Maven pom.xml
 <plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>build-helper-maven-plugin</artifactId>
-    <version>1.4</version>
-    <executions>
-        <execution>
-            <id>test</id>
-            <phase>generate-sources</phase>
-            <goals>
-                <goal>add-source</goal>
-            </goals>
-            <configuration>
-                <sources>
-                    <source>${basedir}/target/generated-sources</source>
-                </sources>
-            </configuration>
-        </execution>
-    </executions>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>build-helper-maven-plugin</artifactId>
+  <version>3.2.0</version>
+  <executions>
+    <execution>
+      <id>add-source</id>
+      <phase>generate-sources</phase>
+      <goals>
+        <goal>add-source</goal>
+      </goals>
+      <configuration>
+        <sources>
+          <source>SOURCE_FOLDER</source>
+        </sources>
+      </configuration>
+    </execution>
+  </executions>
 </plugin>
+
+Note: if using ${project.build.directory}/generated-sources it seems to be required to have a sub-folder (e.g. IntelliJ)
+e.g.: ${project.build.directory}/generated-sources/<tool>
+
 
 - IntelliJ
 Project Structure → Modules → Click the generated-sources folder and make it a sources folder.

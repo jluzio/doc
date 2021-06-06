@@ -13,3 +13,6 @@ export KUBE_EDITOR="'`cygpath -u "C:\Program Files\Notepad++\notepad++.exe"`'"
 export BASH_COMPLETION_COMPAT_DIR=/usr/share/bash-completion/completions
 source $shared_bash_dir/bash_completion
 source $script_dir/aliases
+
+# bash expand env variables with directory paths
+shopt -s direxpand

@@ -45,3 +45,12 @@ echo | openssl s_client -showcerts -servername $host -connect $host:$host_port 2
 
 # Replace text in file
 sed -i 's/search_string/replace_string/' filename
+
+
+# JQ
+.results[0].items | map(select(.case_definition_schema_version == 34)) | map(.case_key)
+
+
+# Bash
+- expand env variables with directory paths
+shopt -s direxpand
