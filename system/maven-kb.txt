@@ -104,6 +104,10 @@ mvn -Dplugin=org.jacoco:jacoco-maven-plugin help:describe
 mvn help:effective-pom
 
 
+# maven-blade-plugin
+mvn com.backbase.oss:blade-maven-plugin:run
+
+
 # Issues
 The forked VM terminated without saying properly goodbye. VM crash or System.exit called
 Add updated surefire to build/plugins (not build/dependencyManagement/plugins)
