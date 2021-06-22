@@ -58,3 +58,6 @@ shopt -s direxpand
 
 # execute a command for each file
 find . -maxdepth 1 -type f -exec <cmd> {} \;
+
+## rename all exts
+find . -name '*.txt' -exec bash -c 'mv "$0" "${0%.txt}.md"' "{}" \;
