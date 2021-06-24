@@ -32,3 +32,7 @@ image-id: see in "docker images" / docker dashboard
 compl_dir=/usr/share/bash-completion/completions/
 curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker -o $compl_dir/docker
 curl -L https://raw.githubusercontent.com/docker/compose/1.28.5/contrib/completion/bash/docker-compose -o $compl_dir/docker-compose
+
+# Tools
+- Dive: see image contents
+ https://github.com/wagoodman/dive

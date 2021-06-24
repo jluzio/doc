@@ -24,6 +24,10 @@ https://kb.iu.edu/d/aews
 - append ~/.ssh/id_rsa.pub into <server>/.ssh/authorized_keys
 cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
 
+# SSH escape commands
+To disconnect a locked-up ssh session, type "Enter ~."
+A full list of escape codes can be found in the ssh manpage or by typing ~?.
+
 # Homebrew
 https://brew.sh/
 
