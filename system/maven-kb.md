@@ -20,6 +20,13 @@ mvn versions:set -DnewVersion=1.0.9 -DgroupId=* -DartifactId=* -DoldVersion=*
 mvn versions:revert
 
 
+# evaluate
+- evaluate any expression for pom data (e.g.: ${project.version}, ${some-prop} for properties in <properties>)
+mvn help:evaluate
+- just output result of expression
+mvn help:evaluate -q -DforceStdout -Dexpression=default-prop -Pdev
+
+
 # add sources / javadoc
 mvn source:jar package
 mvn javadoc:jar package
@@ -98,7 +105,7 @@ Project Structure → Modules → Click the generated-sources folder and make it
 mvn dependency:tree
 
 mvn -Dplugin=: help:describe
-e.g.: 
+e.g.:
 mvn -Dplugin=org.jacoco:jacoco-maven-plugin help:describe
 
 mvn help:effective-pom
@@ -116,4 +123,3 @@ Add updated surefire to build/plugins (not build/dependencyManagement/plugins)
     <artifactId>jacoco-maven-plugin</artifactId>
     <version>0.8.6</version>
 </plugin>
-
