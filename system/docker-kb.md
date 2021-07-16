@@ -28,6 +28,13 @@ image-id: can be seen from Image/Image ID in Kubernetes (kubectl describe <pod>)
 docker image inspect <image-id>
 image-id: see in "docker images" / docker dashboard
 
+- Files
+imageId=$(docker create <image>)
+docker cp $imageId:<image_path> <target_path>
+e.g.:
+imageId=$(docker create alpine)
+docker cp $imageId:/ /home/tmp/docker/alpine
+
 - Completion
 compl_dir=/usr/share/bash-completion/completions/
 curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker -o $compl_dir/docker

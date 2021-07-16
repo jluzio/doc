@@ -59,9 +59,24 @@ sed -i 's/search_string/replace_string/' filename
 - expand env variables with directory paths
 shopt -s direxpand
 
+- undo
+ctrl + /
+- paste what is in buffer (may work as undo in some scenarios)
+ctrl + y (yank: pastes what is in the buffer, )
+
 
 # execute a command for each file
 find . -maxdepth 1 -type f -exec <cmd> {} \;
 
 ## rename all exts
 find . -name '*.txt' -exec bash -c 'mv "$0" "${0%.txt}.md"' "{}" \;
+
+## bash arrays
+values1=(value_1_1 value_1_2)
+values2=(values_2_1)
+all_values=("${values1[@]}" "${values_2[@]}")
+
+for val in "${all_values[@]}";
+do
+  echo $val
+done
