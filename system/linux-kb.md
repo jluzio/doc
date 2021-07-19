@@ -80,3 +80,7 @@ for val in "${all_values[@]}";
 do
   echo $val
 done
+
+# sync dirs
+rsync -a --delete <source_dir>/ <target_dir>
+note: slash at end of <source_dir> ensures it won't be copied as a subdir of <target_dir>
