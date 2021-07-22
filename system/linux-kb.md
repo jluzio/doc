@@ -63,7 +63,9 @@ shopt -s direxpand
 ctrl + /
 - paste what is in buffer (may work as undo in some scenarios)
 ctrl + y (yank: pastes what is in the buffer, )
-
+- delete words/text
+left: ctrl + w
+right: alt + d
 
 # execute a command for each file
 find . -maxdepth 1 -type f -exec <cmd> {} \;

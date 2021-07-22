@@ -18,6 +18,8 @@ Otherwise, commands will have to use "-n <ns>"
 ## kubectl debug
 https://github.com/aylei/kubectl-debug#quick-start
 
+## Registry
+If the registry has ExternalIP, it should show registered services by visiting http://<REGISTRY_HOST>:<REGISTRY_PORT>
 
 ## Pod env
 kubectl exec POD env
@@ -424,10 +426,15 @@ kubectl scale deployments/dbs-access-control-usermanager --replicas=3
 kubectl scale deployments/bnp-onboarding-service-bnp-onboarding-service --replicas=3
 
 #ref port-forward
-pf_pod=portforward-joaolu
+pf_pod=pfwd-bbid
 pf_target=identity-backbaseidentity:8080
 k run --restart=Never --image=alpine/socat $pf_pod -- -d tcp-listen:8080,fork,reuseaddr tcp-connect:$pf_target
 k port-forward $pf_pod 9999:8080
+
+pf_pod=pfwd-bbid-debug
+pf_target=identity-backbaseidentity:5005
+k run --restart=Never --image=alpine/socat $pf_pod -- -d tcp-listen:8080,fork,reuseaddr tcp-connect:$pf_target
+k port-forward $pf_pod 5005:8080
 
 #ref create-pod
 pod=test-pod
