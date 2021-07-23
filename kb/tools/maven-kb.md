@@ -16,7 +16,7 @@ compile but don't run, works with all tests
 
 # Debug
 https://maven.apache.org/configure.html
-MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
+export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
 or
 .mvn/jvm.config file:
 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005

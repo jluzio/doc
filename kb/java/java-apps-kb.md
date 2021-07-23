@@ -23,7 +23,7 @@ Wait or don't wait for attach to start
 
 ## Maven
 https://maven.apache.org/configure.html
-MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
+export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
 or
 .mvn/jvm.config file:
 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
