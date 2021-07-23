@@ -20,6 +20,25 @@ https://docs.spring.io/spring-security/site/docs/5.3.2.RELEASE/api/
 VM Options: -Dspring-boot.run.fork=false
 Environment variables: overrides to Spring Boot app
 
+https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#run.examples
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>
+                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+                    </jvmArguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+or
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+
 
 ## Running with different properties
 - spring.config.location=<csv-resources>
@@ -52,7 +71,7 @@ spring:
     profiles: production
 server:
     port: 0
-    
+
 In this example the default port is 9000, but if the Spring profile “development” is active then the port is 9001, and if “production” is active then it is 0.
 The YAML documents are merged in the order they are encountered (so later values override earlier ones).
 To do the same thing with properties files you can use application-${profile}.properties to specify profile-specific values.    
