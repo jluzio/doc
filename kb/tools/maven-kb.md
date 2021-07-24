@@ -20,7 +20,7 @@ export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,addr
 or
 .mvn/jvm.config file:
 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
-
+(see also: java kb)
 
 # versions
 mvn versions:set -DnewVersion=1.0.9 -DgroupId=* -DartifactId=*

@@ -38,6 +38,7 @@ https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingl
 </project>
 or
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+(see also: java kb)
 
 
 ## Running with different properties
