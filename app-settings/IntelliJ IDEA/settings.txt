@@ -8,16 +8,18 @@
 - Maven Helper
 - Codota
 - Sonar Lint
+- Docker
+- String Manipulation
 - CheckStyle-IDEA
 - EduTools
 
 ## Can be useful
-- String Manipulation
 - Swagger
 - Grep Console
 - BashSupport
 - Key Promoter X
 - Request Mapper
+- Database Navigator
 
 ## Can be useful someday
 - Spring Tools
