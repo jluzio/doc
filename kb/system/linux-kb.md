@@ -86,3 +86,13 @@ done
 # sync dirs
 rsync -a --delete <source_dir>/ <target_dir>
 note: slash at end of <source_dir> ensures it won't be copied as a subdir of <target_dir>
+
+# delete directories with name
+https://stackoverflow.com/questions/42950501/delete-node-modules-folder-recursively-from-a-specified-path-using-command-line
+
+find . -name '<dir_name>' -type d -prune -exec rm -rf '{}' +
+
+https://github.com/voidcosmos/npkill
+npx npkill
+(defaults to node_modules)
+npkill --target <dir_name> -e
