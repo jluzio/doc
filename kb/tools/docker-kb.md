@@ -28,7 +28,6 @@ docker run --rm --volumes-from nbb_mysql -v ${pwd}:/backup busybox sh -c "rm -rf
 ## test
 docker run --rm --volumes-from nbb_mysql -v ${pwd}/html:/usr/share/nginx/html:ro -p 8080:80 -d nginx
 
-
 - Issues
 https://forums.docker.com/t/port-mappings-are-not-released/10565/21
 https://stackoverflow.com/questions/40159468/docker-does-not-release-ports-after-stop-and-remove-all-container
