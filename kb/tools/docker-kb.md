@@ -19,6 +19,15 @@ JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=
 - Backup/Restore
 https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes
 
+# Restore mysql example
+Powershell>
+
+## replace contents
+docker run --rm --volumes-from nbb_mysql -v ${pwd}:/backup busybox sh -c "rm -rf /var/lib/mysql/* && cd /var/lib/mysql/ && tar xvf /backup/bb-platform_nbb_mysql_data.tar --strip 3"
+
+## test
+docker run --rm --volumes-from nbb_mysql -v ${pwd}/html:/usr/share/nginx/html:ro -p 8080:80 -d nginx
+
 
 - Issues
 https://forums.docker.com/t/port-mappings-are-not-released/10565/21
