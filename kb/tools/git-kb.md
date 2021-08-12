@@ -1,5 +1,10 @@
 # GIT
 
+# Github
+## shortcuts
+'.': open VS Code on repo
+'/': search
+
 # Proxy
 git config --global http.proxy http://prx.tapnet.tap.pt:8080
 git config --global --unset http.proxy
@@ -20,8 +25,8 @@ git config --edit
 # Git clean
 git clean -fdxX
 f - force
-x - Don’t use the standard ignore rules read, but do still use the ignore rules given with -e options. 
-This allows removing all untracked files, including build products. 
+x - Don’t use the standard ignore rules read, but do still use the ignore rules given with -e options.
+This allows removing all untracked files, including build products.
 This can be used (possibly in conjunction with git reset) to create a pristine working directory to test a clean build.
 X - Remove only files ignored by Git
 d - Remove untracked directories in addition to untracked files.
