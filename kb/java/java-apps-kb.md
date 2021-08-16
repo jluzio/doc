@@ -21,9 +21,10 @@ chocolatey install zip -y
 chocolatey install unzip -y
 
 - automatic switching
-https://blog.mrhaki.com/2020/10/automatic-switching-of-java-versions.html
+https://sdkman.io/usage#config
 $HOME/.sdkman/etc/config
 sdkman_auto_env=true
+https://blog.mrhaki.com/2020/10/automatic-switching-of-java-versions.html
 
 # Debug
 Java 5-8: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
