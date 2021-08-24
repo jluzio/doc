@@ -49,7 +49,11 @@ https://github.com/roboll/helmfile
 helmfile <subcommand>
 
 use target helmfile with filter of label tier and component
-helmfile -f <helmfile.yaml> --selector=tier=ips,component=edge <subcommand>
+helmfile -f <helmfile.yaml> --selector tier=ips,component=edge <subcommand>
+
+selector (or -l)
+  - can be any label defined: tier=ips,component=edge
+  - can be release name: name=<release-name>
 
 - lint (validation)
 helmfile lint
