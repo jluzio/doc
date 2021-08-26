@@ -67,6 +67,18 @@ Alternative: Configuring plugins in pom to run automatically
   </executions>
 </plugin>
 
+## Runtime Access Warnings/Errors
+--add-opens <module>/<package>=ALL-UNNAMED
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>3.0.0-M5</version>
+  <configuration>
+    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+ </configuration>
+</plugin>
+
 
 # Process running
 - Spring Boot process path limit

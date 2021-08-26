@@ -60,3 +60,8 @@ https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingl
 </project>
 or
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+
+## Runtime Access Warnings/Errors
+--add-opens <module>/<package>=ALL-UNNAMED
+--add-opens java.base/java.lang=ALL-UNNAMED
+java.base does not "opens java.lang"

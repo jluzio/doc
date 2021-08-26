@@ -57,6 +57,24 @@ compl_dir=/usr/share/bash-completion/completions/
 curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker -o $compl_dir/docker
 curl -L https://raw.githubusercontent.com/docker/compose/1.28.5/contrib/completion/bash/docker-compose -o $compl_dir/docker-compose
 
+# Registry
+- run registry
+docker run -d -p 5000:5000 --restart=always --name registry registry
+
+registry=localhost:5000
+registry_uri=http://$registry
+image=identity-onespan-auth-service
+
+docker tag <local-image-repository>:<local-image-tag> $registry/<local-image-name>
+docker push $registry/<local-image-name>
+
+e.g.:
+docker tag remote.registry.url/identity-onespan-auth-service:2021.07 localhost:5000/identity-onespan-auth-service:2021.07
+docker push localhost:5000/identity-onespan-auth-service:2021.07
+
+curl -X GET $registry_uri/v2/_catalog
+curl -X GET $registry_uri/v2/$image/tags/list
+
 # Tools
 - Dive: see image contents
  https://github.com/wagoodman/dive
