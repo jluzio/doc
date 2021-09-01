@@ -3,10 +3,10 @@ script_dir="$( dirname "${BASH_SOURCE[0]}" )"
 shared_bash_dir=$script_dir/../shared-bash
 
 #export PATH=$PATH:/mnt/d/dev/etc/scripts/baas/bb-bnp
-export DEV_SRC=/mnt/d/dev/source
-export DEV_DOC=/mnt/d/dev/doc
-export DEV_HOME=/mnt/d/home
-export SCRIPT_HOME=/mnt/d/dev/etc/scripts
+export DEV_SRC=/mnt/c/dev/source
+export DEV_DOC=/mnt/c/dev/doc
+export DEV_HOME=/mnt/c/home
+export SCRIPT_HOME=/mnt/c/dev/etc/scripts
 export KUBE_EDITOR=nano
 
 #source $shared_bash_dir/bash_completion

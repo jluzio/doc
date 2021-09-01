@@ -7,6 +7,8 @@ complete -F __start_kubectl k
 #alias kbb="k --namespace=backbase"
 #complete -F __start_kubectl kbb
 
+alias git-bash-unicode="chcp 65001"
+
 # kubernetes env configs
 alias setup-bnp="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp.sh"
 alias setup-bnp-kubeconfig="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp-kubeconfig.sh"
@@ -17,7 +19,9 @@ alias setup-nbb-proxyconfig="$SCRIPT_HOME/kube/bring-nbb/setup-nbb-proxyconfig.s
 alias setup-nbb-kubeconfig="$SCRIPT_HOME/kube/bring-nbb/setup-nbb-kubeconfig.sh"
 
 # java env configs
-JAVA_CANDIDATES_FOLDER="/d/dev/tools/.sdkman/candidates/java"
-alias java-default="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/jdk-default"
-alias java-8="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/8.0.252.hs-adpt"
-alias java-11="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/11.0.10.hs-adpt"
+JAVA_CANDIDATES_FOLDER="/c/Users/jluzio/.sdkman/candidates/java"
+alias java-default="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/current"
+alias java-8="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/8.0.292.hs-adpt"
+alias java-11="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/11.0.11.hs-adpt"
+
+source $SDKMAN_DIR/candidates/springboot/current/shell-completion/bash/spring

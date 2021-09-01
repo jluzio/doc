@@ -7,6 +7,11 @@ complete -F _complete_alias k
 #alias kbb="k --namespace=backbase"
 #complete -F _complete_alias kbb
 
+#alias helm2=~/tools/helm2.14.3/helm
+#complete -F _complete_alias helm2
+#source <(helm2 completion bash | sed 's/_helm/_helm2/g')
+#complete -F __start_helm2 helm2
+
 # kubernetes env configs
 alias setup-bnp="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp.sh"
 alias setup-bnp-kubeconfig="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp-kubeconfig.sh"

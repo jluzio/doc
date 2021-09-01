@@ -3,14 +3,14 @@ script_dir="$( dirname "${BASH_SOURCE[0]}" )"
 shared_bash_dir=$script_dir/../shared-bash
 
 #export PATH=$PATH
-export DEV_SRC=/d/dev/source
-export DEV_DOC=/d/dev/doc
-export DEV_HOME=/d/home
-export SCRIPT_HOME=/d/dev/etc/scripts
+export DEV_SRC=/c/dev/source
+export DEV_DOC=/c/dev/doc
+export DEV_HOME=/c/home
+export SCRIPT_HOME=/c/dev/etc/scripts
 #export KUBE_EDITOR=nano
 export KUBE_EDITOR="'`cygpath -u "C:\Program Files\Notepad++\notepad++.exe"`'"
 
-export BASH_COMPLETION_COMPAT_DIR=/usr/share/bash-completion/completions
+export BASH_COMPLETION_COMPAT_DIR=~/bash-completion/completions
 source $shared_bash_dir/bash_completion
 source $script_dir/aliases
 
