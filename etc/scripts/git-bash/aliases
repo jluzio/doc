@@ -7,7 +7,7 @@ complete -F __start_kubectl k
 #alias kbb="k --namespace=backbase"
 #complete -F __start_kubectl kbb
 
-alias git-bash-unicode="chcp 65001"
+alias git-bash-unicode="chcp.com 65001"
 
 # kubernetes env configs
 alias setup-bnp="source $SCRIPT_HOME/baas/bb-bnp/setup-bnp.sh"

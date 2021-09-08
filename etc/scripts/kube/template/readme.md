@@ -11,4 +11,3 @@ E.g.
 # kube ssh tunnel
 127.0.0.1 <kube-api-host>
 127.0.0.1 <kube-context-host>
-
