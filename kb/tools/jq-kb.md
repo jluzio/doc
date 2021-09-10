@@ -8,3 +8,7 @@ https://stedolan.github.io/jq/manual/
 cat properties.json | jq '.properties.property[] | { (.name): .value }'
 
 cat properties.json | jq '.properties.property | from_entries'
+
+- Remove quotes from result (if string)
+use: -r | --raw-output
+echo '"hello"' | jq . -r
