@@ -23,12 +23,12 @@ https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.h
 https://stackoverflow.com/a/11617655/13181895
 
 You can download the SSL certificate from a web server that is already using it like this:
-$ echo -n | openssl s_client -connect www.example.com:443 | \
+echo -n | openssl s_client -connect www.example.com:443 | \
    sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /tmp/examplecert.crt
 
 Optionally verify the certificate information:
-$ openssl x509 -in /tmp/examplecert.crt -text
+openssl x509 -in /tmp/examplecert.crt -text
 
 Import the certificate into the Java cacerts keystore:
-$ keytool -import -trustcacerts -keystore /opt/java/jre/lib/security/cacerts \
+keytool -import -trustcacerts -keystore /opt/java/jre/lib/security/cacerts \
    -storepass changeit -noprompt -alias mycert -file /tmp/examplecert.crt

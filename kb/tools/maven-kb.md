@@ -1,4 +1,11 @@
 
+# Reference
+- Pom Reference
+https://maven.apache.org/pom.html
+- Configuration Inheritance
+https://maven.apache.org/pom.html#advanced_configuration_inheritance
+
+
 # Password Encryption
 https://maven.apache.org/guides/mini/guide-encryption.html
 
