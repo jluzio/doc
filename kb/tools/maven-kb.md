@@ -3,6 +3,7 @@
 - Pom Reference
 https://maven.apache.org/pom.html
 - Configuration Inheritance
+https://maven.apache.org/pom.html#Plugins
 https://maven.apache.org/pom.html#advanced_configuration_inheritance
 
 
