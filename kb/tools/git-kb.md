@@ -18,6 +18,10 @@ You can circumvent this by using another Git client on Windows or set core.longp
 git config --system core.longpaths true
 
 
+# Change remote branch
+git branch branch_name --set-upstream-to your_new_remote/branch_name
+
+
 # Edit config
 git config --edit
 
