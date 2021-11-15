@@ -26,3 +26,8 @@
 
 # Decompiler correct line numbers
 Registry (open in Actions) -> decompiler.dump.original.lines=true
+
+# Formatter off/on
+Code Style -> Formatter -> Turn formatter on/off with markers in code comments
+//@formatter:off
+//@formatter:on
