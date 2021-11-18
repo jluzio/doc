@@ -12,6 +12,7 @@
 - String Manipulation
 - CheckStyle-IDEA
 - EduTools
+- Apache Camel
 
 ## Can be useful
 - Swagger
