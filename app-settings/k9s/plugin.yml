@@ -1,0 +1,41 @@
+plugin:
+  # Leverage stern (https://github.com/wercker/stern) to output logs.
+  stern:
+    shortCut: Ctrl-L
+    confirm: false
+    description: "Logs <Stern>"
+    scopes:
+      - pods
+    command: stern
+    background: false
+    args:
+      - --tail
+      - 50
+      - $FILTER
+      - -n
+      - $NAMESPACE
+      - --context
+      - $CONTEXT
+plugin:
+  logs_last_n:
+    shortCut: Shift-L
+    confirm: false
+    description: "Logs :: Last N"
+    scopes:
+      - pods
+    command: sh
+    background: false
+    args:
+      - -c
+      - "stern --tail 5000 $FILTER -n $NAMESPACE --context $CONTEXT --color=always | less -ISR"
+plugin:
+  dive:
+    shortCut: d
+    confirm: false
+    description: "Dive image"
+    scopes:
+      - containers
+    command: dive
+    background: false
+    args:
+      - $COL-IMAGE
