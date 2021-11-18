@@ -28,6 +28,17 @@ plugin:
     args:
       - -c
       - "stern --tail 5000 $FILTER -n $NAMESPACE --context $CONTEXT --color=always | less -ISR"
+  logs_last_hours:
+    shortCut: Ctrl-V
+    confirm: false
+    description: "Logs :: Last Hours"
+    scopes:
+      - pods
+    command: sh
+    background: false
+    args:
+      - -c
+      - "stern --since=6h $FILTER -n $NAMESPACE --context $CONTEXT --color=always | less -ISR"
 plugin:
   dive:
     shortCut: d
