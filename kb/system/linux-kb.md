@@ -31,6 +31,9 @@ A full list of escape codes can be found in the ssh manpage or by typing ~?.
 # Homebrew
 https://brew.sh/
 
+## install previous package version
+https://cmichel.io/how-to-install-an-old-package-version-with-brew/
+
 # SSH tunnels
 ssh_tunnel=[<bind_address>:]<bind_port>:<host>:<host_port>
 e.g.: 8443:10.104.168.22:8443
