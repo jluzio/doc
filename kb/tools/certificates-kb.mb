@@ -5,6 +5,9 @@ https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html
 https://www.baeldung.com/keytool-intro
 https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html
 
+## list
+keytool -list -rfc -keystore example.jks -storepass changeit
+
 ## export all certificates
 [Bug]: doesn't deal with names with spaces
 [Todo]: fix it
