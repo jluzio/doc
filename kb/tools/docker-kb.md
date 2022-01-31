@@ -19,14 +19,43 @@ JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=
 - Backup/Restore
 https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes
 
+Set-Variable source_container_id mysql
+Set-Variable volume_data_path /var/lib/mysql
+Set-Variable backup_host_path $(pwd)
+Set-Variable backup_filename backup.tar
+
+source_container_id=mysql
+volume_data_path=/var/lib/mysql
+backup_host_path=$(pwd)
+backup_host_path=/c/home/backup
+backup_filename=backup.tar
+
+
 # Restore mysql example
-Powershell>
+docker run --rm --volumes-from $source_container_id -v ${backup_host_path}:/backup busybox tar cvf /backup/$backup_filename $volume_data_path
 
 ## replace contents
-docker run --rm --volumes-from nbb_mysql -v ${pwd}:/backup busybox sh -c "rm -rf /var/lib/mysql/* && cd /var/lib/mysql/ && tar xvf /backup/bb-platform_nbb_mysql_data.tar --strip 3"
+docker run --rm --volumes-from $source_container_id -v ${backup_host_path}:/backup busybox sh -c "rm -rf $volume_data_path/* && cd / && tar xvf /backup/$backup_filename"
 
 ## test
-docker run --rm --volumes-from nbb_mysql -v ${pwd}/html:/usr/share/nginx/html:ro -p 8080:80 -d nginx
+docker run --rm --volumes-from $source_container_id -v ${pwd}/nginx.conf:/etc/nginx/nginx.conf:ro -p 8080:80 --name nginx_test -d nginx
+
+- nginx.conf
+events {
+}
+
+http {
+  server {
+    listen     80;
+    server_name  localhost;
+
+    location / {
+      root   /var/lib/mysql;
+      autoindex on;
+    }
+  }
+}
+
 
 - Read only
 Volumes can be used read-only.
