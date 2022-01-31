@@ -11,8 +11,8 @@
 - gsudo: windows version of sudo
 https://github.com/gerardog/gsudo
 
-### Tools to evaluate:
-- Clink (cmd enhancer)
+### 7zip with filters
+7z a -tzip <archive> <target> -r -x!<exclude1> -x!<excludeN>
 
 ### Tools with Windows Subsystem for Linux
 - Ubuntu
