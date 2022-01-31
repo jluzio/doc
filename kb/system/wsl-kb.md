@@ -1,3 +1,11 @@
+# Export/Import
+- export
+wsl --export <image-name> <export-file>
+- import
+wsl --import <image-name> <wsl-distro-storage-folder> <export-file>
+
+export-file: distro.tar
+wsl-distro-storage-folder: C:\wslDistroStorage\<distro>
 
 ## Issues with copy text becoming unformatted
 https://github.com/microsoft/terminal/issues/52
