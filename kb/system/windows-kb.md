@@ -65,6 +65,11 @@ Spring Boot and long classpaths
 - change $Profile target file
 ### Source
 . <file.ps1>
+### Escape params
+Some flags use -<letter><value> but PowerShell doesn't like it.
+Use '' to escape values for flags.
+e.g.: cmd '-P*.txt'
+
 
 ## Config
 - Default Save Locations: locations for new apps (change to other drive if C has low storage space)
