@@ -58,10 +58,13 @@ sed -i 's/search_string/replace_string/' filename
 .results[0].items | map(select(.case_definition_schema_version == 34)) | map(.case_key)
 
 # Run a command with interval
-watch <option> cmd
+## watch <option> cmd
 e.g.:
 - Run date command every 10 seconds
 watch --interval=10 date
+
+## sleep
+while true; do <cmd>; sleep <secs>; done
 
 # Bash
 - expand env variables with directory paths
