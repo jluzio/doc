@@ -21,7 +21,7 @@ alias setup-nbb-kubeconfig="$SCRIPT_HOME/kube/bring-nbb/setup-nbb-kubeconfig.sh"
 # java env configs
 JAVA_CANDIDATES_FOLDER="/c/Users/jluzio/.sdkman/candidates/java"
 alias java-default="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/current"
-alias java-8="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/8.0.292.hs-adpt"
-alias java-11="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/11.0.11.hs-adpt"
+alias java-8="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/8.0.302-open"
+alias java-11="export JAVA_HOME=$JAVA_CANDIDATES_FOLDER/11.0.12-open"
 
 source $SDKMAN_DIR/candidates/springboot/current/shell-completion/bash/spring

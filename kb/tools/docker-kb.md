@@ -31,13 +31,13 @@ backup_host_path=/c/home/backup
 backup_filename=backup.tar
 
 
-# Restore mysql example
+# Backup
 docker run --rm --volumes-from $source_container_id -v ${backup_host_path}:/backup busybox tar cvf /backup/$backup_filename $volume_data_path
 
-## replace contents
+## Restore
 docker run --rm --volumes-from $source_container_id -v ${backup_host_path}:/backup busybox sh -c "rm -rf $volume_data_path/* && cd / && tar xvf /backup/$backup_filename"
 
-## test
+## Test
 docker run --rm --volumes-from $source_container_id -v ${pwd}/nginx.conf:/etc/nginx/nginx.conf:ro -p 8080:80 --name nginx_test -d nginx
 
 - nginx.conf
