@@ -11,8 +11,8 @@
 - gsudo: windows version of sudo
 https://github.com/gerardog/gsudo
 
-### Tools to evaluate:
-- Clink (cmd enhancer)
+### 7zip with filters
+7z a -tzip <archive> <target> -r -x!<exclude1> -x!<excludeN>
 
 ### Tools with Windows Subsystem for Linux
 - Ubuntu
@@ -65,6 +65,11 @@ Spring Boot and long classpaths
 - change $Profile target file
 ### Source
 . <file.ps1>
+### Escape params
+Some flags use -<letter><value> but PowerShell doesn't like it.
+Use '' to escape values for flags.
+e.g.: cmd '-P*.txt'
+
 
 ## Config
 - Default Save Locations: locations for new apps (change to other drive if C has low storage space)
