@@ -10,6 +10,7 @@ export SCRIPT_HOME=/mnt/c/dev/etc/scripts
 export KUBE_EDITOR=nano
 
 # if there is some error like: "x509: certificate relies on legacy Common Name field"
+# maybe this export can help
 #export GODEBUG=x509ignoreCN=0
 
 #source $shared_bash_dir/bash_completion
