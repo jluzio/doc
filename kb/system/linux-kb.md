@@ -107,3 +107,7 @@ https://github.com/voidcosmos/npkill
 npx npkill
 (defaults to node_modules)
 npkill --target <dir_name> -e
+
+# compressed files
+- uncompress
+tar.gz: tar –xvzf documents.tar.gz
