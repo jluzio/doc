@@ -20,16 +20,22 @@ JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=
 https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes
 
 Set-Variable source_container_id mysql
+## Windows
 Set-Variable volume_data_path /var/lib/mysql
-Set-Variable backup_host_path $(pwd)
 Set-Variable backup_filename backup.tar
+Set-Variable backup_host_path $(pwd)
 
+(Git Bash & others)
 source_container_id=mysql
 volume_data_path=/var/lib/mysql
-backup_host_path=$(pwd)
-backup_host_path=/c/home/backup
 backup_filename=backup.tar
+backup_host_path=$(cygpath -w $(pwd))
 
+## Linux
+source_container_id=mysql
+volume_data_path=/var/lib/mysql
+backup_filename=backup.tar
+backup_host_path=$(pwd)
 
 # Backup
 docker run --rm --volumes-from $source_container_id -v ${backup_host_path}:/backup busybox tar cvf /backup/$backup_filename $volume_data_path
