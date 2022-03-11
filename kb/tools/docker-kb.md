@@ -15,6 +15,13 @@ JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=
 > JDK 9 or later
 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
 
+- Docker Bridge
+docker0 / 172.17.0.1
+https://docs.docker.com/network/network-tutorial-standalone/
+https://docs.docker.com/desktop/windows/networking/
+
+- Networking on Windows
+https://docs.docker.com/desktop/windows/networking/
 
 - Backup/Restore
 https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes
@@ -88,6 +95,8 @@ imageId=$(docker create alpine)
 docker cp $imageId:/ /home/tmp/docker/alpine
 
 - Completion
+https://docs.docker.com/compose/completion/
+
 compl_dir=/usr/share/bash-completion/completions/
 curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker -o $compl_dir/docker
 curl -L https://raw.githubusercontent.com/docker/compose/1.28.5/contrib/completion/bash/docker-compose -o $compl_dir/docker-compose

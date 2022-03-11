@@ -381,6 +381,8 @@ aws ecr list-images  --region us-east-2
   apk add curl
 or
   kubectl run test-pod -it --image=dwdraju/alpine-curl-jq -- sh
+or
+  kubectl run test-pod -it --image=praqma/network-multitool -- sh
 
 - attach it after closing
 kubectl attach test-pod -c test-pod -it
