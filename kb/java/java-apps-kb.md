@@ -42,24 +42,61 @@ or
 
 ## Spring
 https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#run.examples
-(example with suspending at start)
+
+Example with suspending at start
+```xml
 <project>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <jvmArguments>
-                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
-                    </jvmArguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <jvmArguments>
+            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+          </jvmArguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
+```
 or
+```bash
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+```
+
+## Spring Boot + Lombok + MapStruct
+
+```xml
+<!-- Core Tools and Annotation processors -->
+<dependency>
+  <groupId>org.projectlombok</groupId>
+  <artifactId>lombok</artifactId>
+  <version>${lombok.version}</version>
+  <scope>provided</scope>
+</dependency>
+<dependency>
+  <groupId>org.mapstruct</groupId>
+  <artifactId>mapstruct</artifactId>
+  <version>${org.mapstruct.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-configuration-processor</artifactId>
+  <optional>true</optional>
+</dependency>
+<dependency>
+  <groupId>org.mapstruct</groupId>
+  <artifactId>mapstruct-processor</artifactId>
+  <version>${org.mapstruct.version}</version>
+</dependency>
+<dependency>
+  <groupId>org.projectlombok</groupId>
+  <artifactId>lombok-mapstruct-binding</artifactId>
+  <version>${lombok-mapstruct-binding.version}</version>
+</dependency>
+```
 
 ## Runtime Access Warnings/Errors
 --add-opens <module>/<package>=ALL-UNNAMED

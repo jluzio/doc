@@ -24,24 +24,30 @@ VM Options: -Dspring-boot.run.fork=false
 Environment variables: overrides to Spring Boot app
 
 https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#run.examples
+
+Example with suspending at start
+```xml
 <project>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <jvmArguments>
-                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
-                    </jvmArguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <jvmArguments>
+            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+          </jvmArguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
+```
 or
+```bash
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
-(see also: java kb)
+```
+(see also: java-apps-kb)
 
 
 ## Running with different properties
@@ -51,18 +57,21 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=
 
 
 ## spring-boot:run with profiles and other parameters
+```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=<profile1>,<profile2> -Dspring-boot.run.jvmArguments="-Dspring.config.additional-location=.settings/config/"
-
+```
 
 ## Profiles
 - active profiles
 spring.profiles.active
 
 - Change configuration depending on the environment
-A YAML file is actually a sequence of documents separated by --- lines, and each document is parsed separately to a flattened map.
-If a YAML document contains a spring.profiles key, then the profiles value (comma-separated list of profiles) is fed into the Spring Environment.acceptsProfiles() and if any of those profiles is active that document is included in the final merge (otherwise not).
+
+  A YAML file is actually a sequence of documents separated by --- lines, and each document is parsed separately to a flattened map.
+  If a YAML document contains a spring.profiles key, then the profiles value (comma-separated list of profiles) is fed into the Spring Environment.acceptsProfiles() and if any of those profiles is active that document is included in the final merge (otherwise not).
 
 Example:
+```yaml
 server:
     port: 9000
 ---
@@ -75,12 +84,14 @@ spring:
     profiles: production
 server:
     port: 0
+```
 
 In this example the default port is 9000, but if the Spring profile “development” is active then the port is 9001, and if “production” is active then it is 0.
 The YAML documents are merged in the order they are encountered (so later values override earlier ones).
 To do the same thing with properties files you can use application-${profile}.properties to specify profile-specific values.    
 
 ## Relaxed binding for Configuration and Environment Properties
+```java
 @ConfigurationProperties(prefix="acme.my-project.person")
 public class OwnerProperties {
  private String firstName;
@@ -91,12 +102,13 @@ public class OwnerProperties {
  this.firstName = firstName;
  }
 }
+```
 
--- Options
-acme.my-project.person.first-name: Kebab case, which is recommended for use in .properties and .yml files.
-acme.myProject.person.firstName: Standard camel case syntax.
-acme.my_project.person.first_name: Underscore notation, which is an alternative format for use in .properties and .yml files.
-ACME_MYPROJECT_PERSON_FIRSTNAME: Upper case format, which is recommended when using system enviroment.
+### Options
+* acme.my-project.person.first-name: Kebab case, which is recommended for use in .properties and .yml files.
+* acme.myProject.person.firstName: Standard camel case syntax.
+* acme.my_project.person.first_name: Underscore notation, which is an alternative format for use in .properties and .yml files.
+* ACME_MYPROJECT_PERSON_FIRSTNAME: Upper case format, which is recommended when using system enviroment.
 
 
 ## Spring Boot jar archive
