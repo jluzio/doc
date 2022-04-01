@@ -18,3 +18,17 @@ https://github.com/c-bata/kube-prompt
 
 # stern
 https://github.com/wercker/stern
+
+# Lens
+https://k8slens.dev/
+## GO version compatible with legacy certificates (error: x509: certificate relies on legacy Common Name field)
+- Download compatible Kubernetes client:
+```bash
+curl -LO "https://dl.k8s.io/release/<version>/bin/windows/amd64/kubectl.exe"
+```
+```bash
+# version v1.17.17
+curl -LO "https://dl.k8s.io/release/v1.17.17/bin/windows/amd64/kubectl.exe"
+```
+- Turn off `Download kubectl binaries matching the Kubernetes cluster version`
+- Set `Path to kubectl binary` with downloaded version
