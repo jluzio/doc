@@ -115,7 +115,6 @@ public class OwnerProperties {
 Can be unzipped with unzip or 7zip specifying "Open Archive > zip"
 Can also be less'ed to view header info.
 
-
 ## Doc Notes
 
 ### 1.10.1. @Component and Further Stereotype Annotations
