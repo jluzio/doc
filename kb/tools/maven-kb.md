@@ -77,6 +77,8 @@ Alternative: Configuring plugins in pom to run automatically
 
 ## Runtime Access Warnings/Errors
 --add-opens <module>/<package>=ALL-UNNAMED
+if multiple: --add-opens <module>/<package1>=ALL-UNNAMED --add-opens <module>/<package2>=ALL-UNNAMED ...
+Note: only one argLine
 
 <plugin>
   <groupId>org.apache.maven.plugins</groupId>

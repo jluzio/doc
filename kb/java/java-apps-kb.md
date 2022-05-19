@@ -102,3 +102,5 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=
 --add-opens <module>/<package>=ALL-UNNAMED
 --add-opens java.base/java.lang=ALL-UNNAMED
 java.base does not "opens java.lang"
+
+if multiple: --add-opens <module>/<package1>=ALL-UNNAMED --add-opens <module>/<package2>=ALL-UNNAMED ...
