@@ -1,0 +1,70 @@
+# Concepts
+
+## Docker Network
+* Bridge/Docker0: default virtual network on which containers are created (which is different than host machine)
+
+
+# Commands
+
+~~~bash
+docker container run
+~~~
+
+> *-p/--publish host_port:container_port*: publish port
+
+> *--name name*: set name container
+
+> *-d/--detach*: detach
+
+> *command*: execute command instead of container entrypoint command
+
+
+~~~bash
+docker container stop/rm container_id
+~~~
+Start/stop/remove container
+
+
+~~~bash
+docker container start container_id
+~~~
+Start/stop/remove container
+
+> *-ai*: attach + interactive tty
+
+
+~~~bash
+docker container exec container_id command
+~~~
+Execute command on container
+
+> *-it*: interactive + tty
+
+
+~~~bash
+docker container inspect container_id
+~~~
+Inspect container metadata
+
+> *--format {go-template-selector}*: output result of go template selector
+>
+> example:  `--format "{{.NetworkSettings.IPAddress}}"`
+
+~~~bash
+docker container ps
+~~~
+List containers
+
+> *-a/--all*: all containers (even stopped)
+
+
+~~~bash
+docker container top
+~~~
+Top command for processes on container
+
+
+~~~bash
+docker container port
+~~~
+See ports on container
