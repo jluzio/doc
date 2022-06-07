@@ -1,70 +1,149 @@
 # Concepts
 
-## Docker Network
+## Container
+* Don't include the OS Kernel (it isn't a full OS, "just an application")
+* Run and CTRL-C: run the image with -it flags
+~~~bash
+docker container run -it _image_
+~~~
+
+## Image
+* Docker build caches all instructions, so if a part changes all below it will be rebuilt
+* Workdir is best practice for changing directories in build
+* Commands in build shell might be chained in order to make only 1 layer (ex: apt-get update && apt-get install <packages> && ...), and it's best practice to do so
+
+## Network
 * Bridge/Docker0: default virtual network on which containers are created (which is different than host machine)
+* Containers on bridge don't have DNS resolution by container name
+* Creating a Network with Bridge driver allows DNS resolution by container name
 
 
 # Commands
 
-~~~bash
-docker container run
-~~~
+## Container
+* Run container
+  ~~~bash
+  docker container run
+  ~~~
+  > *-p/--publish host_port:container_port*: publish port
 
-> *-p/--publish host_port:container_port*: publish port
+  > *--name name*: set name container
 
-> *--name name*: set name container
+  > *-d/--detach*: detach
 
-> *-d/--detach*: detach
-
-> *command*: execute command instead of container entrypoint command
-
-
-~~~bash
-docker container stop/rm container_id
-~~~
-Start/stop/remove container
+  > *command*: execute command instead of container entrypoint command
 
 
-~~~bash
-docker container start container_id
-~~~
-Start/stop/remove container
+* Stop/remove container
+  ~~~bash
+  docker container stop/rm container_id
+  ~~~
 
-> *-ai*: attach + interactive tty
+* Start container
+  ~~~bash
+  docker container start container_id
+  ~~~
+
+  > *-ai*: attach + interactive tty
+
+* Execute command on container
+  ~~~bash
+  docker container exec container_id command
+  ~~~
+
+  > *-it*: interactive + tty
+
+* Inspect container metadata
+  ~~~bash
+  docker container inspect container_id
+  ~~~
+
+  > *--format {go-template-selector}*: output result of go template selector
+  >
+  > example:  `--format "{{.NetworkSettings.IPAddress}}"`
+
+* List containers
+  ~~~bash
+  docker container ps
+  ~~~
+
+  > *-a/--all*: all containers (even stopped)
+
+* Top command for processes on container
+  ~~~bash
+  docker container top
+  ~~~
+
+* See ports on container
+  ~~~bash
+  docker container port
+  ~~~
 
 
-~~~bash
-docker container exec container_id command
-~~~
-Execute command on container
+## Network
+* Show networks:
+  ~~~bash
+  docker network ls
+  ~~~
 
-> *-it*: interactive + tty
+* Inspect network:
+  ~~~bash
+  docker network inspect
+  ~~~
 
+* Create network:
+  ~~~bash
+  docker network create --driver
+  ~~~
 
-~~~bash
-docker container inspect container_id
-~~~
-Inspect container metadata
+* Attach a network to a container:
+  ~~~bash
+  docker network connect
+  ~~~
 
-> *--format {go-template-selector}*: output result of go template selector
->
-> example:  `--format "{{.NetworkSettings.IPAddress}}"`
+* Detach a network to a container:
+  ~~~bash
+  docker network disconnect
+  ~~~
 
-~~~bash
-docker container ps
-~~~
-List containers
+## Account
+* Login
+  ~~~bash
+  docker login
+  ~~~
 
-> *-a/--all*: all containers (even stopped)
+* Logout
+  ~~~bash
+  docker logout
+  ~~~
 
+## Image
+* Show image layer history:
+  ~~~bash
+  docker image history
+  ~~~
 
-~~~bash
-docker container top
-~~~
-Top command for processes on container
+* Inspect image:
+  ~~~bash
+  docker image inspect
+  ~~~
 
+* Tag image:
+  ~~~bash
+  docker image tag imageId tag
+  ~~~
 
-~~~bash
-docker container port
-~~~
-See ports on container
+* Inspect image:
+  ~~~bash
+  docker image push tag
+  ~~~
+
+* Build image:
+  ~~~bash
+  docker image build (-f _file_) _dir_
+  ~~~
+
+* Prune:
+  * docker image prune: clean up just "dangling" images
+  * docker image prune -a: removes all images you're not using. Use docker system df to see space usage.
+  * (!!AVOID!!) docker system prune: clean up everything (!!AVOID!!)
