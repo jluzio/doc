@@ -3,7 +3,8 @@
 alias lessis="less -IS"
 
 alias k=kubectl
-complete -F __start_kubectl k
+complete -F _complete_alias k
+#complete -F __start_kubectl k
 #alias kbb="k --namespace=backbase"
 #complete -F __start_kubectl kbb
 

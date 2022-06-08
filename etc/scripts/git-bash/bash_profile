@@ -1,6 +1,5 @@
 #!/bin/bash
 script_dir="$( dirname "${BASH_SOURCE[0]}" )"
-shared_bash_dir=$script_dir/../shared-bash
 
 #export PATH=$PATH
 export DEV_SRC=/c/dev/source
@@ -10,8 +9,8 @@ export SCRIPT_HOME=/c/dev/etc/scripts
 #export KUBE_EDITOR=nano
 export KUBE_EDITOR="'`cygpath -u "C:\Program Files\Notepad++\notepad++.exe"`'"
 
-export BASH_COMPLETION_COMPAT_DIR=~/bash-completion/completions
-source $shared_bash_dir/bash_completion
+source ~/bash-completion/bash_completion
+source ~/.bash_completion.d/complete_alias
 source $script_dir/aliases
 
 # bash expand env variables with directory paths
