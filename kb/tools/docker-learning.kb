@@ -1,3 +1,6 @@
+# Playground
+https://labs.play-with-docker.com/
+
 # Concepts
 
 ## Container
@@ -16,6 +19,64 @@ docker container run -it _image_
 * Bridge/Docker0: default virtual network on which containers are created (which is different than host machine)
 * Containers on bridge don't have DNS resolution by container name
 * Creating a Network with Bridge driver allows DNS resolution by container name
+### Multi-host
+* Use --driver overlay (used on swarm)
+
+## Persistent data
+* Volume: persistent volume stored outside the container
+* Bind mounts: map a host path to a container path
+* Used in docker run with -v
+  * volume_name:/path/container - volume mapping
+  * /path/host:/path/container - bind mount mapping
+  > **Note**:
+  >
+  > Can use $(pwd) or ${pwd} (Powershell)
+  >
+  > Windows might need 2 slashes //c/path/to/files or /$(pwd)
+
+## VMs
+To setup multiple VMs for Docker Swarm or K8s there are some options
+- multipass.run: https://multipass.run/
+- use play-with-docker (4 hours session)
+
+## Routing Mesh
+- Routes ingress (incoming) packets for a Service to proper Task
+- Spans all nodes in Swarm
+- Load balances (stateless)
+  * This works at OSI Layer 3 (TCP), not Layer 4 (DNS), so no multiple same ports on a node
+  * Can be overcome with Nginx or HAProxy LB proxy or Docker Enterprise edition
+- How it works?
+  * Container-to-container in a Overlay network (uses VIP)
+  * External traffic incoming to published ports (all nodes listen)
+
+## Compose
+- Compose is a tool for defining and running multi-container Docker applications.
+
+## Stack
+- Manage Docker stacks, similar concept of compose but for Swarm
+
+## Secrets
+- Easiest secure solution for storing secrets in Swarm
+- Supports generic strings or binary content up to 500KB in size
+- It's for Swarm, but docker compose does a workaround to use secrets
+
+When you add a secret to the swarm, Docker sends the secret to the swarm manager over a mutual TLS connection.
+The secret is stored in the Raft log, which is encrypted. The entire Raft log is replicated across the other managers,
+ensuring the same high availability guarantees for secrets as for the rest of the swarm management data.
+When you grant a newly-created or running service access to a secret, the decrypted secret is mounted into the container in an in-memory filesystem.
+The location of the mount point within the container defaults to /run/secrets/<secret_name> in Linux containers, or C:\ProgramData\Docker\secrets in Windows containers.
+You can also specify a custom location.
+
+> Note: for compose, it's using a bind mount (volume)
+
+
+# Sample structure for compose files
+- docker-compose.yml: defaults
+- docker-compose.override.yml: used by default with docker compose
+- docker-compose.<id>.yml: compose specialization, can be used with the format `docker compose -f a.yml -f b.yml`
+  * docker-compose.test.yml: example for CI builds using docker compose
+  * docker-compose.prod.yml: example for Production deploys using docker stack,
+  can be used with `docker compose -f a.yml -f b.yml config` to generate Stack deploy
 
 
 # Commands
@@ -32,6 +93,8 @@ docker container run -it _image_
   > *-d/--detach*: detach
 
   > *command*: execute command instead of container entrypoint command
+
+  > *-v/--volume name:path*: set volume
 
 
 * Stop/remove container
@@ -144,6 +207,122 @@ docker container run -it _image_
   ~~~
 
 * Prune:
-  * docker image prune: clean up just "dangling" images
-  * docker image prune -a: removes all images you're not using. Use docker system df to see space usage.
-  * (!!AVOID!!) docker system prune: clean up everything (!!AVOID!!)
+  * `docker image prune`: clean up just "dangling" images
+  * `docker image prune -a`: removes all images you're not using. Use docker system df to see space usage.
+  * (!!AVOID!!) `docker system prune`: clean up everything (!!AVOID!!)
+
+
+## Volume
+* Create:
+  ~~~bash
+  docker volume create
+  ~~~
+
+
+## Compose
+* Up:
+  ~~~bash
+  docker compose up
+  ~~~
+
+  > Can build image if not present (does not rebuild if present)
+
+* Down:
+  ~~~bash
+  docker compose down
+  ~~~
+
+  > *-v/--volume*: delete associated volumes
+
+  > *--rmi (all|local)*: remove images reference by services. local removes only local without custom tags (image: _custom_name_)
+
+* Build:
+  ~~~bash
+  docker compose build
+  ~~~
+
+## Swarm - Container orchestration
+* Init:
+~~~bash
+docker swarm init
+~~~
+
+* Leave:
+~~~bash
+docker swarm leave [--force]
+~~~
+
+* Node ls:
+~~~bash
+docker node ls
+~~~
+
+### Service ("replacement" of docker run for swarm, "aka deployment" in Kubernetes)
+* General params:
+  * --detach true|false: if the service command waits to be finished
+
+* Create:
+~~~bash
+docker service create
+~~~
+Example:
+~~~bash
+docker service create --name ping --replicas=3 alpine ping 8.8.8.8
+~~~
+
+* List services:
+~~~bash
+docker service ls
+~~~
+
+* List tasks:
+~~~bash
+docker service ps
+~~~
+
+* Scale:
+~~~bash
+docker service scale
+~~~
+
+* Update:
+~~~bash
+docker service update
+~~~
+  * --replicas=[N]
+
+#### Multiple nodes
+* Init with advertise:
+~~~bash
+docker swarm init --advertise-addr=_IP_
+~~~
+
+* Join:
+Use command shown in init.
+~~~bash
+docker swarm join
+~~~
+Re-check join command:
+~~~bash
+docker swarm join-token manager|worker
+~~~
+
+* Update node to being a manager:
+~~~bash
+docker node update --role manager _node_
+~~~
+
+
+## Stack (compose for Swarm)
+* Deploy (and re-deploy)
+~~~bash
+docker stack -c <stack-file.yml> <stack-name>
+~~~
+
+
+## Secrets
+* Create
+~~~bash
+docker secret create
+~~~
+With file or key-value
