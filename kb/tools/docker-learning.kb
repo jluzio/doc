@@ -38,6 +38,7 @@ docker container run -it _image_
 To setup multiple VMs for Docker Swarm or K8s there are some options
 - multipass.run: https://multipass.run/
 - use play-with-docker (4 hours session)
+  * Note: has a template (wrench icon) setup for Swarm
 
 ## Routing Mesh
 - Routes ingress (incoming) packets for a Service to proper Task
@@ -70,13 +71,56 @@ You can also specify a custom location.
 > Note: for compose, it's using a bind mount (volume)
 
 
-# Sample structure for compose files
+## Healthchecks
+- Docker engine will exec the command in the container: e.g. curl localhost
+- Expects return: 0 = OK, 1 = Error
+- States: starting, healthy, unhealthy
+- Unhealthy services are replaced (Swarm), docker run doesn't act
+
+### Options
+Used in Dockerfile (*), docker run (health-*), docker compose (healthcheck), with different names
+* cmd
+* interval
+* timeout
+* start-period
+* retries
+
+## Sample structure for compose files
 - docker-compose.yml: defaults
 - docker-compose.override.yml: used by default with docker compose
 - docker-compose.<id>.yml: compose specialization, can be used with the format `docker compose -f a.yml -f b.yml`
   * docker-compose.test.yml: example for CI builds using docker compose
   * docker-compose.prod.yml: example for Production deploys using docker stack,
   can be used with `docker compose -f a.yml -f b.yml config` to generate Stack deploy
+
+
+## Docker Registry
+
+### Docker Hub
+- Most popular public image registry
+- Has some lightweight image building
+
+#### Automated builds (PRO feature)
+- Can setup a Github or Bitbucket with Pro accounts
+- Can verify changes in other repos to trigger builds (useful for when using FROM <another-image>)
+- Can have triggers
+
+### Private Registry
+https://docs.docker.com/registry/
+- Image: registry
+- No auth/simple auth
+- Can have storage cleanup via Garbage Collection
+> https://docs.docker.com/registry/garbage-collection/
+- Can enable cache using `registry-mirror` option
+> https://docs.docker.com/registry/recipes/mirror/
+- Enable TLS
+> https://training.play-with-docker.com/linux-registry-part2/
+- Note: works the same with Swarm. Because of Routing mesh all nodes can see the new registry service
+
+### Third party Image Registries
+- Quay.io is a popular choice
+- AWS, Azure or Google Cloud have their own registries
+
 
 
 # Commands
@@ -290,6 +334,10 @@ docker service scale
 docker service update
 ~~~
   * --replicas=[N]
+    * also: `docker service scale`
+  * --image _new_image_
+  * ...
+  * --force: completely replaces tasks, can rebalance tasks
 
 #### Multiple nodes
 * Init with advertise:
@@ -326,3 +374,32 @@ docker stack -c <stack-file.yml> <stack-name>
 docker secret create
 ~~~
 With file or key-value
+
+
+## Registry
+* Run registry image
+~~~bash
+~~~
+
+* Run registry image
+~~~bash
+docker container run --name registry -d -p 5000:5000 registry
+~~~
+
+* Re-tag image to local registry
+~~~bash
+docker tag hello-world 127.0.0.1/hello-world
+docker push 127.0.0.1/hello-world
+~~~
+
+* Remove image and pull from local registry
+~~~bash
+docker image rm hello-world
+docker image rm 127.0.0.1/hello-world
+docker pull 127.0.0.1/hello-world
+~~~
+
+* Re-create registry using a bind mount to see stored data
+~~~bash
+docker container run --name registry -d -p 5000:5000 -v $(pwd)/registry-data:/var/lib/registry registry
+~~~
