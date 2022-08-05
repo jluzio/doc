@@ -21,6 +21,10 @@ https://github.com/wercker/stern
 
 # Lens
 https://k8slens.dev/
+
+## Latest free version 5.5.4
+choco install -y lens --version=5.5.4
+
 ## GO version compatible with legacy certificates (error: x509: certificate relies on legacy Common Name field)
 - Download compatible Kubernetes client:
 ```bash
