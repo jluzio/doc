@@ -188,6 +188,19 @@ spec:
 
 
 # Ingress
+- https://kubernetes.io/docs/concepts/services-networking/ingress/
+- https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+
+- https://doc.traefik.io/traefik/v2.0/providers/kubernetes-ingress/
+- https://doc.traefik.io/traefik/v2.0/user-guides/crd-acme/
+- https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
+
+# CRDs and the Operator pattern
+TODO: check and try operators
+- https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
+- https://kubernetes.io/docs/concepts/extend-kubernetes/operator/
+- https://operatorhub.io/
+- https://github.com/operator-framework/awesome-operators (obsolete)
 
 
 
