@@ -3,7 +3,7 @@
 ## Useful
 - Lombok
 - Rainbow Brackets
-- Spring Initializr and Assistant
+- Spring Boot Assistant
 - MapStruct Support
 - Maven Helper
 - Codota
