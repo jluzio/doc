@@ -16,6 +16,14 @@ https://github.com/microsoft/terminal/issues/52
 
 - Inside the wsl distribution
 (may not require sudo depending on permissions or parameters)
+
+## with wsl automount equivalent permissions
+~~~bash
+sudo mkdir /mnt/<usb_drive_letter>
+sudo mount -t drvfs <usb_drive_letter>: /mnt/<usb_drive_Letter> -o uid=$(id -u $USER),gid=$(id -g $USER),metadata
+~~~
+
+## simple
 ~~~bash
 sudo mkdir /mnt/f
 sudo mount -t drvfs f: /mnt/f
