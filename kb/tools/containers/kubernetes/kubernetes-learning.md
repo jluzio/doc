@@ -202,7 +202,39 @@ TODO: check and try operators
 - https://operatorhub.io/
 - https://github.com/operator-framework/awesome-operators (obsolete)
 
+# Higher deployment abstrations
+- Helm
+- With Docker
+  - Compose on Kubernetes (docker compose for stack using Kubernetes orchestrator)
+  - docker app
+- Templating
+  - Helm
+  - Kustomize (natively built into kubectl or standalone)
+    - commands:
+      - kubetcl apply -k
+      - kustomize
 
+# Kubernetes Dashboard
+- Default GUI: github.com/kubernetes/dashboard
+- beware of security
+
+# Namespaces and Context
+- Namespaces
+  -  Virtual clusters
+  - It's a label system, which is used by most commands to filter by context
+- Clusters
+  - ways to connect with different users or to different clusters
+
+# Related projects
+- Knative: serverless workloads on Kubernetes
+- k3s: mini, simple Kubernetes
+- k3OS: minimal OS for k3s
+- Service Mesh: new layer for better control, security, monitoring, etc
+
+# Automation
+- Jenkins (maybe is decaying in usage due to complexity)
+- Gitlabs CI
+- Others
 
 # Commands
 - dry-run and output to yaml: use any command with --dry-run -o yaml to generate the yaml without applying to Kubernetes
