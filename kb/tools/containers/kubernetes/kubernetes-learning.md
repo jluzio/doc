@@ -53,7 +53,7 @@ Types:
   * Adds CNAME DNS record to CoreDNS only
   * Not used for pods, but for giving pods a DNS name to use for something outside Kubernetes
 - Ingress
-  * TODO
+  * Is an API object that provides routing rules to manage external users' access to the services in a Kubernetes cluster, typically via HTTPS/HTTP
 
 > Note: on expose commands, ClusterIP, NodePort and LoadBalancer are additive, creating a service also creates the other types above it
 > e.g. NodePort also creates ClusterIP
@@ -62,6 +62,12 @@ Types:
 - Provided by CoreDNS (by default)
 - DNS based service discovery
 - Services have a FQDN of: <service>.<namespace>.svc.cluster.local
+
+## ConfigMap
+External configuration files.
+
+## Secrets
+Secure external configuration, using base64.
 
 
 # Debug running pod
@@ -186,6 +192,30 @@ spec:
   * multiple pods can share them
 - CSI plugins are the new way to connect to storage
 
+## Local Volumes  
+Options:
+ - hostPath
+ - local
+Examples:
+- https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/  
+
+https://kubernetes.io/blog/2019/04/04/kubernetes-1.14-local-persistent-volumes-ga/  
+Note: For local machines, local volume replaced hostPath as the preferred method.
+
+### What is a Local Persistent Volume?
+
+A local persistent volume represents a local disk directly-attached to a single Kubernetes Node.
+
+Kubernetes provides a powerful volume plugin system that enables Kubernetes workloads to use a wide variety of block and file storage to persist data. Most of these plugins enable remote storage -- these remote storage systems persist data independent of the Kubernetes node where the data originated. Remote storage usually can not offer the consistent high performance guarantees of local directly-attached storage. With the Local Persistent Volume plugin, Kubernetes workloads can now consume high performance local storage using the same volume APIs that app developers have become accustomed to.
+
+### How is it different from a HostPath Volume?
+To better understand the benefits of a Local Persistent Volume, it is useful to compare it to a HostPath volume. HostPath volumes mount a file or directory from the host node’s filesystem into a Pod. Similarly a Local Persistent Volume mounts a local disk or partition into a Pod.
+
+The biggest difference is that the Kubernetes scheduler understands which node a Local Persistent Volume belongs to. With HostPath volumes, a pod referencing a HostPath volume may be moved by the scheduler to a different node resulting in data loss. But with Local Persistent Volumes, the Kubernetes scheduler ensures that a pod using a Local Persistent Volume is always scheduled to the same node.
+
+While HostPath volumes may be referenced via a Persistent Volume Claim (PVC) or directly inline in a pod definition, Local Persistent Volumes can only be referenced via a PVC. This provides additional security benefits since Persistent Volume objects are managed by the administrator, preventing Pods from being able to access any path on the host.
+
+Additional benefits include support for formatting of block devices during mount, and volume ownership using fsGroup.
 
 # Ingress
 - https://kubernetes.io/docs/concepts/services-networking/ingress/
