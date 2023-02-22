@@ -38,6 +38,9 @@ new com.fasterxml.jackson.databind.ObjectMapper()
   .writeValueAsString(varName)
 ```
 
+## JEP 408: Simple Web Server
+https://openjdk.org/jeps/408
+jwebserver
 
 ## Spring context
 ContextLoader.getCurrentWebApplicationContext();
