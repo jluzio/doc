@@ -63,6 +63,13 @@ helmfile write-values
 
 - sync k8s with releases
 helmfile sync
+
+Arguments:
+## works with all kinds of hashs
+helmfile sync --args "--set-string global.app.image.tag=<IMAGE_TAG>"
+## works with alphanumeric of hashs (no numbers)
+helmfile sync --set global.app.image.tag=<IMAGE_TAG>
+
 - same but only when there are changes (diff then sync if any changes)
 helmfile apply
 
@@ -84,3 +91,4 @@ helmfile diff
 You can use go's text/template expressions in helmfile.yaml and values.yaml.gotmpl (templated helm values files). values.yaml references will be used verbatim. In other words:
   - for value files ending with .gotmpl, template expressions will be rendered
   - for plain value files (ending in .yaml), content will be used as-is
+
