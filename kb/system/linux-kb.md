@@ -4,11 +4,18 @@
 CTRL-R: searchs history of commands
 After typing filter, CTRL-R goes to next match
 
-# copy less buffer
+# less
+## save to file
+s -> <filename>
+
+## copy less buffer
 - Type | (that's a pipe character) to indicate that you want to output to a pipe
 - Type $ to indicate that you want the output content to go to the end of the file
 - Type dd of=/path/to/new/file and press Enter
 - The dd command will take the piped data and save it to the file passed to the of= argument.
+
+# grep
+- multiple files: grep -rni (r: recursive, n: display line, i: ignore case)
 
 # sshuttle - transparent proxy meets vpn meets ssh
 https://github.com/sshuttle/sshuttle
