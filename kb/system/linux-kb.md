@@ -8,11 +8,18 @@ After typing filter, CTRL-R goes to next match
 ## save current buffer to file
 s -> <filename>
 
-## save buffer
-- Type | (that's a pipe character) to indicate that you want to output to a pipe
-- Type $ to indicate that you want the output content to go to the end of the file
-- Type dd of=/path/to/new/file and press Enter
+## save buffer to file (dd)
+- Optionally mark with `m <mark_key>`
+- Type `|` (that's a pipe character) to indicate that you want to output to a pipe
+- Type `$` or `mark_key` to indicate that you want the output content to go to the end of the file
+- Type `dd of=/path/to/new/file` and press Enter
 - The dd command will take the piped data and save it to the file passed to the of= argument.
+
+## save buffer to clipboard (xclip)
+- Optionally mark with `m <mark_key>`
+- Type `|` (that's a pipe character) to indicate that you want to output to a pipe
+- Type `$` or `mark_key` to indicate that you want the output content to go to the end of the file
+- Type `xclip -selection clipboard` and press Enter (or `xclip` to save and `xclip -o` to output saved data)
 
 # grep
 - multiple files: grep -rni (r: recursive, n: display line, i: ignore case)
