@@ -5,10 +5,10 @@ CTRL-R: searchs history of commands
 After typing filter, CTRL-R goes to next match
 
 # less
-## save to file
+## save current buffer to file
 s -> <filename>
 
-## copy less buffer
+## save buffer
 - Type | (that's a pipe character) to indicate that you want to output to a pipe
 - Type $ to indicate that you want the output content to go to the end of the file
 - Type dd of=/path/to/new/file and press Enter
