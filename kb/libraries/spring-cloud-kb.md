@@ -7,3 +7,15 @@ Workaround: rename config file or use KUBECONFIG environment to point to a direc
 ```bash
 export KUBECONFIG=/doesnt-exist/
 ```
+
+## Service discovery for tests
+~~~yaml
+spring:
+  cloud:
+    discovery:
+      client:
+        simple:
+          interfaces:
+            some-service-id:
+            - uri: http://localhost:8080
+~~~
