@@ -69,6 +69,13 @@ Arguments:
 helmfile sync --args "--set-string global.app.image.tag=<IMAGE_TAG>"
 ## works with alphanumeric of hashs (no numbers)
 helmfile sync --set global.app.image.tag=<IMAGE_TAG>
+### util exporter (WIP)
+~~~bash
+cat << EOF > image-tag.sh
+#!/usr/bin/env bash
+export imageTag="--args \"--set-string global.app.image.tag=\$1\""
+EOF
+~~~
 
 - same but only when there are changes (diff then sync if any changes)
 helmfile apply
