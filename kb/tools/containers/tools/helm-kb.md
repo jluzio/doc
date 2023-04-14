@@ -99,3 +99,6 @@ You can use go's text/template expressions in helmfile.yaml and values.yaml.gotm
   - for value files ending with .gotmpl, template expressions will be rendered
   - for plain value files (ending in .yaml), content will be used as-is
 
+# Issues
+- Error: could not find a ready tiller pod
+Delete/restart the tiller-deploy on namespace kube-system.
