@@ -11,15 +11,15 @@ else
     ssh_tunnel=<bind_port>:<host>:<host_port>
   fi
   if [ $target = "dev" ]; then
-    # dev.nbbdev.com.bh - 10.104.168.22
     ssh_tunnel=<bind_port>:<host>:<host_port>
   fi
   if [ $target = "test" ]; then
-    # test.nbbdev.com.bh - 10.104.168.21
     ssh_tunnel=<bind_port>:<host>:<host_port>
   fi
   if [ $target = "uat" ]; then
-    # uat.nbbdev.com.bh - 10.104.168.20
+    ssh_tunnel=<bind_port>:<host>:<host_port>
+  fi
+  if [ $target = "prd-uat" ]; then
     ssh_tunnel=<bind_port>:<host>:<host_port>
   fi
   # ssh tunnel background process
