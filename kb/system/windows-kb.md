@@ -14,9 +14,7 @@ https://github.com/gerardog/gsudo
 ### 7zip with filters
 7z a -tzip <archive> <target> -r -x!<exclude1> -x!<excludeN>
 
-### Tools with Windows Subsystem for Linux
-- Ubuntu
-
+## Long paths
 https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-260-characters/
 - Enable LongPathsEnabled:
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
@@ -25,6 +23,9 @@ https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-2
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "LongPathsEnabled"=dword:00000000
 
+
+### Tools with Windows Subsystem for Linux
+- Ubuntu
 
 ## Directory Links
 - cmd:
