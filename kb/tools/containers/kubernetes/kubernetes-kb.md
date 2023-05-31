@@ -46,7 +46,7 @@ kubectl edit deploy <app>
 ## Remote Debug:
 ssh -L <port>:localhost:<port> sysadmin@nbbjumpserver
 ex:
-ssh -L 5007:localhost:5007 sysadmin@nbbjumpserver
+ssh -L 5005:localhost:5005 sysadmin@nbbjumpserver
 
 kubectl port-forward <pod> <port>:5005
 kubectl port-forward $pod 5007:5005
