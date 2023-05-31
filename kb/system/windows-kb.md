@@ -98,6 +98,16 @@ https://youtrack.jetbrains.com/issue/IDEA-238995?_ga=2.91342814.590959948.162075
 net stop winnat
 net start winnat
 
+- svchost/iphlpsvc listen ports
+~~~
+netsh interface portproxy show all
+
+netsh interface portproxy delete help
+
+netsh interface portproxy delete v4tov4 listenport=27117 listenaddress=0.0.0.0
+~~~
+https://superuser.com/a/1729731
+
 
 ## IntelliJ
 - Lombok & MapStruct workaround
