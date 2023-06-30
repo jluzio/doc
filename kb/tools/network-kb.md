@@ -13,3 +13,4 @@ The GODEBUG=x509ignoreCN=0 flag will be removed in Go 1.17. It enables the legac
 working version (2021-11): 3.2.3
 
 - OpenVPN GUI (Open source)
+NOTE: this app copies the imported configuration, so references to files must be absolute instead of relative (or copy to the app import folder)
