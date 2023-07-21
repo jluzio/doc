@@ -14,3 +14,6 @@ working version (2021-11): 3.2.3
 
 - OpenVPN GUI (Open source)
 NOTE: this app copies the imported configuration, so references to files must be absolute instead of relative (or copy to the app import folder)
+
+# ssh remote forwarding
+ssh -L local_port:destination_server_ip:remote_port ssh_server_hostname
