@@ -12,3 +12,8 @@ cat properties.json | jq '.properties.property | from_entries'
 - Remove quotes from result (if string)
 use: -r | --raw-output
 echo '"hello"' | jq . -r
+
+- Filter list by property
+~~~bash
+[.[] | select(.name | contains("query-text"))]
+~~~
