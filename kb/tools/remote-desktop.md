@@ -1,6 +1,10 @@
 
 # Issues
 
+## Small black boxes graphic issue
+- Disable: `Persistent bitmap caching` and delete files in `<AppData>\Local\Microsoft\Terminal Server Client\Cache`
+
+
 ## Remote Desktop: Sending Ctrl-Alt-Left Arrow/Ctrl-Alt-Right Arrow to the remote PC
 https://superuser.com/questions/327866/remote-desktop-sending-ctrl-alt-left-arrow-ctrl-alt-right-arrow-to-the-remote-p
 
