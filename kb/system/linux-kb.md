@@ -125,3 +125,13 @@ npkill --target <dir_name> -e
 # compressed files
 - uncompress
 tar.gz: tar –xvzf documents.tar.gz
+
+# util commands
+- date with format
+~~~bash
+date +%Y-%m-%d
+
+echo $(date +%Y-%m-%d)
+mkdir $(date +%Y-%m-%d)
+cd $(date +%Y-%m-%d)
+~~~
