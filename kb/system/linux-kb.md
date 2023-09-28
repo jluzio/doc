@@ -130,8 +130,8 @@ tar.gz: tar –xvzf documents.tar.gz
 - date with format
 ~~~bash
 date +%Y-%m-%d
-
 echo $(date +%Y-%m-%d)
-mkdir $(date +%Y-%m-%d)
-cd $(date +%Y-%m-%d)
+~~~
+~~~bash
+mkdir $(date +%Y%m%d) ; cd $(date +%Y%m%d)
 ~~~
