@@ -109,6 +109,16 @@ netsh interface portproxy delete v4tov4 listenport=27117 listenaddress=0.0.0.0
 https://superuser.com/a/1729731
 
 
+- redirect port
+~~~bash
+netsh interface portproxy add v4tov4 listenaddress=<localaddress> listenport=<localport> connectaddress=<destaddress> connectport=<destport>
+~~~
+
+~~~bash
+netsh interface portproxy add v4tov4 listenaddress=localhost listenport=20101 connectaddress=localhost connectport=8888
+~~~
+
+
 ## IntelliJ
 - Lombok & MapStruct workaround
 https://github.com/mplushnikov/lombok-intellij-plugin/issues/952#issuecomment-741821327
