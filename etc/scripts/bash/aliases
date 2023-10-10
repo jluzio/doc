@@ -23,3 +23,5 @@ alias setup-nbb-kubeconfig="$SCRIPT_HOME/kube/bring-nbb/setup-nbb-kubeconfig.sh"
 
 alias setup-minikube="source $SCRIPT_HOME/kube/minikube/setup-minikube.sh"
 alias setup-minikube-kubeconfig-copy="$SCRIPT_HOME/kube/minikube/setup-minikube-kubeconfig-copy.sh"
+
+alias ssh-ports="ssh -L 5005:localhost:5005 -L 8888:localhost:8080"
