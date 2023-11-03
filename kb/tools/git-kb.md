@@ -72,6 +72,13 @@ git checkout tags/<tag_id> [-b <new_branch>]
 git checkout tags/jenkins-PRD-TravelOffice-WAS7-44_2019-05-30_1128 -b prd_fix_20190605
 
 
+# Utils
+- update a project
+~~~bash
+update() { pwd_bk=$(pwd); cd $1; git fetch && git switch develop && git pull; cd $pwd_bk; ls; }
+~~~
+
+
 # Certificates
 ## Git Certificate
 ### Method for self signed git repository
