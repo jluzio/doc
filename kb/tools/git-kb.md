@@ -113,11 +113,30 @@ git add -A
 git commit -m init
 git push ...
 
+
 # Links
 https://github.com/microsoft/Git-Credential-Manager-for-Windows
+
 
 # PR Patch
 <pr-path>.patch
 https://github.com/_user_/_repo_/pull/11/files
 ->
 https://github.com/_user_/_repo_/pull/11.patch
+
+
+# Copy repo with history
+https://www.atlassian.com/git/tutorials/git-move-repository
+~~~bash
+git clone --mirror <url to ORI repo> temp-dir
+
+git tag
+git branch -a
+
+git remote rm origin
+
+git remote add origin <url to NEW repo>
+
+git push origin --all
+git push --tags
+~~~
