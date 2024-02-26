@@ -17,3 +17,12 @@ echo '"hello"' | jq . -r
 ~~~bash
 [.[] | select(.name | contains("query-text"))]
 ~~~
+
+- round to n-decimal
+n=2
+~~~bash
+.*100 | round/100
+~~~
+
+- sum
+<expr-to-select-array> | add
