@@ -1,5 +1,18 @@
 # NeoVim
 
+# Starters/Distros
+- https://github.com/nvim-lua/kickstart.nvim
+- https://nvchad.com
+- https://www.lazyvim.org
+- https://astronvim.com
+- https://www.lunarvim.org
+
+
+# Help
+- :Tutor
+- :help
+
+
 # Setup
 ## nvchad
 https://nvchad.com/docs/quickstart/install
