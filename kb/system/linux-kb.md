@@ -135,3 +135,8 @@ echo $(date +%Y-%m-%d)
 ~~~bash
 mkdir $(date +%Y%m%d) ; cd $(date +%Y%m%d)
 ~~~
+
+# run a curl command every x seconds to see if url is up
+~~~bash
+while :; do curl -s https://someurl.com > /dev/null && echo "Success" || echo "Fail"; sleep 1; done
+~~~
