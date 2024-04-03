@@ -12,6 +12,10 @@ https://github.com/derailed/k9s
 https://github.com/derailed/k9s/tree/master/plugins
 ## GO version compatible with legacy certificates (error: x509: certificate relies on legacy Common Name field)
 https://github.com/derailed/k9s/releases/tag/v0.24.15
+## increase max lines show of logs
+~~~yaml
+k9s.logger.tail: 2000
+~~~
 
 # kube-prompt
 https://github.com/c-bata/kube-prompt
