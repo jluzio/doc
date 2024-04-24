@@ -11,3 +11,7 @@ function java-default { set-java current }
 
 Set-Variable -Name SDKMAN_SPRINGBOOT -Value C:\Users\jluzio\.sdkman\candidates\springboot\current\bin
 $env:Path += ";" + $SDKMAN_SPRINGBOOT
+
+# Custom Keys
+Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
+Set-PSReadlineKeyHandler -Key ctrl+d -Function ViExit
