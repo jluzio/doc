@@ -140,3 +140,13 @@ mkdir $(date +%Y%m%d) ; cd $(date +%Y%m%d)
 ~~~bash
 while :; do curl -s https://someurl.com > /dev/null && echo "Success" || echo "Fail"; sleep 1; done
 ~~~
+
+# fzf - fuzzy find files
+~~~bash
+# default
+fzf
+# preview contents
+fzf --preview 'cat {}'
+# open nvim with the file selected using fzf
+nvim $(fzf --preview 'cat {}')
+~~~
