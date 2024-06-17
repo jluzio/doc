@@ -28,3 +28,15 @@ ise $profile
 
 ## Info
 https://lazyadmin.nl/powershell/powershell-profile/
+
+
+## Autocomplete types
+- bash
+~~~powershell
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+~~~
+
+- default
+~~~powershell
+Set-PSReadlineKeyHandler -Key Tab -Function Complete
+~~~
