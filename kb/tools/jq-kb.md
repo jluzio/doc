@@ -3,6 +3,8 @@ https://stedolan.github.io/jq/
 https://stedolan.github.io/jq/manual/
 
 ## Examples
+- compact
+`jq -c .`
 
 { properties: [ { "name": "n1", "value": "v1" }, { "name": "n2", "value": "v2" }, ] }
 cat properties.json | jq '.properties.property[] | { (.name): .value }'

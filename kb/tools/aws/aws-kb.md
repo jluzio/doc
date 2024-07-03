@@ -5,6 +5,22 @@ https://courses.datacumulus.com/downloads/certified-cloud-practitioner-zb2/
 ## aws-cli completion
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html
 
+## Refs
+- AWS Blogs: https://aws.amazon.com/blogs/aws/ 
+- AWS Forums (community): https://forums.aws.amazon.com/index.jspa
+- AWS Whitepapers & Guides: https://aws.amazon.com/whitepapers 
+- AWS Partner Solutions (formerly Quick Starts): https://aws.amazon.com/quickstart/ 
+  - Automated, gold-standard deployments in the AWS Cloud
+  - Build your production environment quickly with templates
+  - Example: WordPress on AWS https://fwd.aws/P3yyv?did=qs_card&trk=qs_card 
+  - Leverages CloudFormation 
+- AWS Solutions: https://aws.amazon.com/solutions/ 
+  - Vetted Technology Solutions for the AWS Cloud
+  - Example - AWS Landing Zone: secure, multi-account AWS environment
+    - https://aws.amazon.com/solutions/implementations/aws-landing-zone/ 
+    - “Replaced” by AWS Control Tower
+- AWS re:Post Knowledge Center: https://repost.aws/knowledge-center/
+
 
 ## useful
 
@@ -101,3 +117,7 @@ Types:
 - Network LB
 - Gateway LB: route traffic to firewalls, intrusion detection
 - Classic LB (retired in 2023)
+
+
+# Tools
+- CIDR range visualizer: https://cidr.xyz/
