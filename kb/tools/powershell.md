@@ -40,3 +40,11 @@ Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 ~~~powershell
 Set-PSReadlineKeyHandler -Key Tab -Function Complete
 ~~~
+
+## Alias
+~~~powershell
+Set-Alias <name> <value>
+
+example:
+Set-Alias openssl C:\Program Files\Git\usr\bin\openssl.exe
+~~~
