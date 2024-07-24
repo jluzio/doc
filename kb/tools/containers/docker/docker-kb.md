@@ -1,6 +1,22 @@
 # Docker & Java debug
 https://medium.com/swlh/remote-debugging-a-java-application-running-in-docker-container-with-intellij-idea-efe54cd77f02
 
+## Update existing images
+~~~bash
+# single image
+docker image pull $image
+# all images in docker compose file
+docker compose pull $composefile
+~~~
+
+## Image Digest
+~~~bash
+docker images --digests
+docker inspect --format='{{.RepoDigests}}' $image
+docker inspect --format='{{index .RepoDigests 0}}' $image
+~~~
+
+
 - Remote
 1) IDE
 host: host.docker.internal
