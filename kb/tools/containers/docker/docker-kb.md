@@ -117,6 +117,7 @@ compl_dir=/usr/share/bash-completion/completions/
 curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker -o $compl_dir/docker
 curl -L https://raw.githubusercontent.com/docker/compose/1.28.5/contrib/completion/bash/docker-compose -o $compl_dir/docker-compose
 
+
 # Registry
 - run registry
 docker run -d -p 5000:5000 --restart=always --name registry registry
@@ -135,6 +136,21 @@ docker push localhost:5000/identity-onespan-auth-service:2021.07
 curl -X GET $registry_uri/v2/_catalog
 curl -X GET $registry_uri/v2/$image/tags/list
 
+
 # Tools
 - Dive: see image contents
  https://github.com/wagoodman/dive
+
+
+# Troubleshooting
+- OpenSearch config
+~~~md
+https://hub.docker.com/r/opensearchproject/opensearch
+
+ISSUE with vm.max_map_count
+https://stackoverflow.com/questions/69214301/using-docker-desktop-for-windows-how-can-sysctl-parameters-be-configured-to-sur
+
+Session only workaround:
+- Docker Desktop: wsl -d docker-desktop sh -c "sysctl -w vm.max_map_count=262144"
+- Rancher Desktop: wsl -d rancher-desktop sh -c "sysctl -w vm.max_map_count=262144"
+~~~
