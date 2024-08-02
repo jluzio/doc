@@ -285,3 +285,10 @@ Consider using snappy or lz4 for optimal speed
 ### Default partitioner
 Kafka 2.4+: Sticky Partitioner (improves performance when key=null)
 Kafka 2.4-: Round Robin (more partitions to send, more batches, less performance)
+
+
+## Consumer
+### Delivery Semantics
+- At most once: offsets are committed when batch is received, if the consumer crashes before processing all messages, messages are lost
+- At least once: offsets are committed when batch is processed, if the consumer crashes before processing all messages, messages will be processed twice. Processing of a message must be idempotent.
+- Exactly once: For Kafka => Kafka, can be achieved using the Transactional API (easy with Kafka Streams API). For Kafka => Sink workflows, use a idempotent consumer.

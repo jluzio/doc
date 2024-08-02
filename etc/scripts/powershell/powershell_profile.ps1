@@ -12,6 +12,11 @@ function java-default { set-java current }
 Set-Variable -Name SDKMAN_SPRINGBOOT -Value C:\Users\jluzio\.sdkman\candidates\springboot\current\bin
 $env:Path += ";" + $SDKMAN_SPRINGBOOT
 
+function dockerps-func {docker ps | grep -v "k8s"}
+Set-Alias dockerps dockerps-func
+function dockerpsall-func {docker ps --all | grep -v "k8s"}
+Set-Alias dockerpsall dockerpsall-func
+
 # Custom Keys
 Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
 Set-PSReadlineKeyHandler -Key ctrl+d -Function ViExit

@@ -150,3 +150,10 @@ fzf --preview 'cat {}'
 # open nvim with the file selected using fzf
 nvim $(fzf --preview 'cat {}')
 ~~~
+
+# exclude results using grep
+~~~bash
+# grep -v <pattern> : excludes lines matching the pattern
+# example for listing all containers and excluding the k8s ones
+docker ps --all | grep -v "k8s"
+~~~
