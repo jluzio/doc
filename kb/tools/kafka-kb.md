@@ -10,6 +10,10 @@
   - https://github.com/spring-cloud/spring-cloud-stream-samples/
 - https://docs.confluent.io/kafka/operations-tools/kafka-tools.html
 
+### Connectors
+- https://www.confluent.io/product/connectors/
+- https://www.confluent.io/hub/
+
 ### Conduktor
 - https://www.conduktor.io/kafka/java-kafka-programming/
 - https://www.conduktor.io/kafka/advanced-kafka-consumer-with-java/
@@ -292,3 +296,415 @@ Kafka 2.4-: Round Robin (more partitions to send, more batches, less performance
 - At most once: offsets are committed when batch is received, if the consumer crashes before processing all messages, messages are lost
 - At least once: offsets are committed when batch is processed, if the consumer crashes before processing all messages, messages will be processed twice. Processing of a message must be idempotent.
 - Exactly once: For Kafka => Kafka, can be achieved using the Transactional API (easy with Kafka Streams API). For Kafka => Sink workflows, use a idempotent consumer.
+
+### Offset commit behaviour
+- auto (enable.auto.commit=true)
+Regular commit of offsets (enables "At least once" by default). 
+Commits on poll when `auto.commit.interval.ms` has passed.
+Make sure messages are successfully processed when calling again poll to ensure "At least once".
+
+- manual
+Called on consumer with `commitSync` or `commitAsync`.
+
+### Offset reset behaviour
+- auto.offset.reset
+  - latest: read at the end of the log
+  - earliest: read at the start of the log
+  - none: use saved offset or throw exception if there isn't any
+
+- offset.retention.minutes: Offsets are preserved for 7 days (v 2.0+).
+
+### Heartbeat
+- heartbeat.interval.ms: default 3s
+How often to send heartbeats
+
+- session.timeout.ms: default 45s (v >= 3.0)
+if no heartbeat is sent during this time, the consumer is considered dead
+
+### Polling
+- max.poll.interval.ms: default 5m
+max time between polls to consider the consumer dead
+
+- max.poll.records: default 500
+how many records per poll request
+consider lowering if we take lots of time to process messages, or increasing if we process messages really quick
+
+- fetch.min.bytes: default 1
+how much we pull per request
+
+- fetch.max.wait.ms: default 500
+max amount of time broker will block before answering the fetch request if there isn't sufficient data
+
+- max.partition.fetch.bytes: default 1MB
+max amount of data per partition on fetch
+
+- fetch.max.bytes: default 55MB
+max data size return per fetch
+
+### Consumer Rack Awareness
+Consumers can read from the nearest replica on Kafka v >= 2.4, to reduce latency or additional costs (cloud).
+
+Broker settings:
+- rack.id: data center id
+- replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
+
+Consumer settings:
+- client.rack: set with data center id
+
+
+# Kafka Connect
+A Kafka connector is a component used within the Kafka Connect framework, which is part of the Apache Kafka ecosystem. Kafka Connect is a tool for scalably and reliably streaming data between Apache Kafka and other systems. It enables the integration of various data sources and sinks with Kafka.
+
+Kafka connectors come in two main types:
+
+1. **Source Connectors**: These connectors import data from an external system into Kafka topics. They can read data from databases, message queues, file systems, cloud storage, and other sources.
+
+2. **Sink Connectors**: These connectors export data from Kafka topics to an external system. They can write data to databases, search indexes, file systems, cloud storage, and other destinations.
+
+### Key Features of Kafka Connect
+
+- **Scalability**: Kafka Connect can scale to accommodate a high volume of data flows.
+- **Fault Tolerance**: It provides built-in fault tolerance, which ensures the reliability of data transfers.
+- **Distributed and Standalone Modes**: Kafka Connect can run in distributed mode for production environments or standalone mode for simpler use cases or testing.
+- **Configuration and Management**: Connectors are configured using JSON files or REST API, making it easy to set up and manage.
+- **Schema Management**: It supports schema management and can enforce schema compatibility using Confluent Schema Registry.
+
+### Use Cases
+
+- **Database Ingestion**: Continuously ingest data from databases into Kafka topics.
+- **Streaming Data to Data Warehouses**: Stream data from Kafka topics to data warehouses like Amazon Redshift, Google BigQuery, etc.
+- **Log Aggregation**: Collect and aggregate logs from various sources into Kafka for centralized processing.
+- **Real-Time Analytics**: Stream data from Kafka topics to analytic engines for real-time analysis.
+
+### Example
+
+Here is an example of how you might configure a Kafka source connector to pull data from a MySQL database:
+
+```json
+{
+  "name": "mysql-source-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "tasks.max": "1",
+    "connection.url": "jdbc:mysql://localhost:3306/mydatabase",
+    "connection.user": "myuser",
+    "connection.password": "mypassword",
+    "table.whitelist": "mytable",
+    "mode": "incrementing",
+    "incrementing.column.name": "id",
+    "topic.prefix": "mysql-",
+    "poll.interval.ms": "1000"
+  }
+}
+```
+
+This configuration specifies a Kafka Connect source connector that pulls data from a MySQL database table called `mytable` and writes it to a Kafka topic prefixed with `mysql-`.
+
+Kafka connectors significantly simplify the process of integrating various data systems with Kafka, allowing for the seamless and efficient movement of data across different platforms.
+
+### Commands
+- connect-standalone.sh 
+- connect-distributed.sh
+- ...
+
+### Connectors
+- Connector Hub: https://www.confluent.io/hub
+  - Elastic Search: https://www.confluent.io/hub/confluentinc/kafka-connect-elasticsearch
+- Wikimedia: https://github.com/conduktor/kafka-connect-wikimedia
+
+### User guide
+https://docs.confluent.io/platform/current/connect/userguide.html
+Where to install plugins (connectors), how to run, etc.
+
+
+# Kafka Streams
+Kafka Streams is a powerful and lightweight Java library provided by Apache Kafka for building real-time, event-driven applications and microservices. It allows developers to process data streams in real-time, leveraging the capabilities of Kafka's distributed messaging system.
+
+### Key Features of Kafka Streams
+
+1. **Stream Processing**: Kafka Streams enables the processing of continuous real-time streams of data.
+2. **Scalability**: It can be scaled horizontally by running multiple instances of the application.
+3. **Fault Tolerance**: Kafka Streams ensures fault tolerance through Kafka's replication and persistent storage.
+4. **Stateful and Stateless Processing**: It supports both stateless and stateful operations, including aggregations, joins, and windowed operations.
+5. **Exactly Once Semantics**: Kafka Streams provides strong guarantees around message processing, ensuring that messages are processed exactly once.
+6. **Interactive Queries**: It allows querying the state of your application directly, providing a way to interactively query the stream processing application's state.
+
+### Core Concepts
+
+1. **Streams and Tables**: 
+   - A **stream** is an unbounded sequence of records, each with a key, value, and timestamp.
+   - A **table** is a collection of key-value pairs where the latest value for each key is kept, essentially representing the latest state.
+
+2. **KStream and KTable**:
+   - **KStream**: Represents a stream of records. It is used for stateless transformations like filtering, mapping, etc.
+   - **KTable**: Represents a changelog stream, where each record is an update to the state of a key.
+
+3. **Topology**:
+   - A topology is a directed acyclic graph of stream processing nodes that defines the processing logic of your application.
+   - It consists of **source processors**, **stream processors**, and **sink processors**.
+
+### Example of Kafka Streams
+
+Here's a simple example of a Kafka Streams application that reads from an input topic, processes the data, and writes the results to an output topic.
+
+```java
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.kstream.KStream;
+
+import java.util.Properties;
+
+public class WordCountApplication {
+    public static void main(String[] args) {
+        Properties props = new Properties();
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount-application");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+
+        StreamsBuilder builder = new StreamsBuilder();
+
+        KStream<String, String> textLines = builder.stream("input-topic");
+
+        KStream<String, Long> wordCounts = textLines
+            .flatMapValues(textLine -> Arrays.asList(textLine.toLowerCase().split("\\W+")))
+            .groupBy((key, word) -> word)
+            .count()
+            .toStream();
+        wordCounts.to("output-topic");
+
+        KafkaStreams streams = new KafkaStreams(builder.build(), props);
+        streams.start();
+    }
+}
+```
+
+### Explanation of the Example
+
+1. **Configuration**: Sets up the properties needed for the Kafka Streams application.
+2. **Stream Definition**: Defines a stream from the `input-topic`.
+3. **Processing**: 
+   - Splits the text lines into words.
+   - Groups by words and counts the occurrences.
+4. **Output**: Writes the word counts to the `output-topic`.
+5. **Execution**: Starts the Kafka Streams application.
+
+Kafka Streams simplifies the development of real-time stream processing applications, providing a robust, scalable, and fault-tolerant platform that integrates seamlessly with Kafka.
+
+
+## Schema Registry
+The Schema Registry is a critical component in the Apache Kafka ecosystem, particularly when working with Kafka's serialization formats such as Avro, Protobuf, and JSON Schema. It provides a centralized repository for managing schemas and ensures that data being written to and read from Kafka topics adheres to these schemas.
+
+### Key Features of the Schema Registry
+
+1. **Centralized Schema Management**: Stores and retrieves schemas for Kafka topics, ensuring consistency and reusability.
+2. **Schema Versioning**: Supports versioning of schemas, allowing for backward, forward, and full compatibility checks.
+3. **Compatibility Enforcement**: Ensures that any changes to schemas are compatible with previous versions, preventing data inconsistencies and serialization errors.
+4. **RESTful Interface**: Provides a REST API for registering, retrieving, and managing schemas.
+5. **Integration with Kafka Clients**: Works seamlessly with Kafka producers and consumers, making it easy to serialize and deserialize messages according to the stored schemas.
+
+### Benefits of Using the Schema Registry
+
+- **Data Quality and Consistency**: Ensures that data conforms to predefined schemas, preventing errors and inconsistencies.
+- **Ease of Evolution**: Manages schema versions and compatibility, making it easier to evolve data formats without breaking existing applications.
+- **Interoperability**: Facilitates integration between different systems by standardizing data formats.
+
+### Example Use Case
+
+Consider a scenario where you are using Avro serialization for messages in Kafka. Here's how the Schema Registry fits into the process:
+
+1. **Schema Definition**: Define an Avro schema for your data.
+2. **Register Schema**: Register the schema with the Schema Registry using its REST API.
+3. **Produce Messages**: When producing messages, the Kafka producer retrieves the schema from the Schema Registry and uses it to serialize the data.
+4. **Consume Messages**: When consuming messages, the Kafka consumer retrieves the schema from the Schema Registry and uses it to deserialize the data.
+
+### Example Workflow
+
+1. **Register a Schema**:
+
+```sh
+curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+    --data '{"schema": "{\"type\": \"record\", \"name\": \"User\", \"fields\": [{\"name\": \"name\", \"type\": \"string\"}, {\"name\": \"age\", \"type\": \"int\"}]}"}' \
+    http://localhost:8081/subjects/User-value/versions
+```
+
+2. **Retrieve a Schema**:
+
+```sh
+curl -X GET http://localhost:8081/subjects/User-value/versions/latest
+```
+
+3. **Producer Code Example**:
+
+```java
+Properties props = new Properties();
+props.put("bootstrap.servers", "localhost:9092");
+props.put("key.serializer", "io.confluent.kafka.serializers.KafkaAvroSerializer");
+props.put("value.serializer", "io.confluent.kafka.serializers.KafkaAvroSerializer");
+props.put("schema.registry.url", "http://localhost:8081");
+
+Producer<String, GenericRecord> producer = new KafkaProducer<>(props);
+
+String topic = "users";
+Schema schema = new Schema.Parser().parse(new File("user.avsc"));
+GenericRecord user = new GenericData.Record(schema);
+user.put("name", "Alice");
+user.put("age", 30);
+
+ProducerRecord<String, GenericRecord> record = new ProducerRecord<>(topic, "key1", user);
+producer.send(record);
+producer.close();
+```
+
+4. **Consumer Code Example**:
+
+```java
+Properties props = new Properties();
+props.put("bootstrap.servers", "localhost:9092");
+props.put("group.id", "user-consumer-group");
+props.put("key.deserializer", "io.confluent.kafka.serializers.KafkaAvroDeserializer");
+props.put("value.deserializer", "io.confluent.kafka.serializers.KafkaAvroDeserializer");
+props.put("schema.registry.url", "http://localhost:8081");
+
+Consumer<String, GenericRecord> consumer = new KafkaConsumer<>(props);
+consumer.subscribe(Collections.singletonList("users"));
+
+while (true) {
+    ConsumerRecords<String, GenericRecord> records = consumer.poll(Duration.ofMillis(100));
+    for (ConsumerRecord<String, GenericRecord> record : records) {
+        System.out.println(record.value());
+    }
+}
+```
+
+In this workflow, the Schema Registry ensures that both the producer and consumer use the correct schema for serialization and deserialization, enabling seamless and consistent data exchange.
+
+
+# Real world insights and Case studies
+
+## Partitions Count and Replication factor
+Best to get it right on the start, since changing partitions breaks distribution with keys.
+
+### Partitions
+More partitions implies:
+- better parallelism and throughput
+- ability to run consumers in a group to scale
+- ability to leverage more brokers
+- more elections (if using Zookeper)
+- more files opened
+
+Guidelines:
+- (intuition) small cluster (< 6 brokers): 3 * brokers
+- (intuition) large cluster (> 12 brokers): 2 * brokers
+- adjust for number of consumers you need to run in parallel at peak throughput
+- adjust for producer throughput (increase if very high or expected to increase in the next 2 years)
+- TEST!
+
+### Replication Factor
+Should be at least 2, usually 3, max 4.
+
+The higher it is:
+- better durability
+- better availability
+- more replication, higher latency
+- more disk space
+
+
+# Topics naming convenction
+https://cnr.sh/essays/how-paint-bike-shed-kafka-topic-naming-conventions
+
+<message type>.<dataset name>.<data name>.<data format>
+(other: <message type>.<dataset name>.<data name>)
+
+Here, valid message type values are left up to the organization to define. 
+Typical types include:
+- logging: For logging data (slf4j, syslog, etc)
+- queuing: For classical queuing use cases.
+- tracking: For tracking events such as user clicks, page views, ad views, etc.
+- etl/db: For ETL and CDC use cases such as database feeds.
+- streaming: For intermediate topics created by stream processing pipelines.
+- push: For data that’s being pushed from offline (batch computation) environments into online environments.
+- user: For user-specific data such as scratch and test topics.
+
+`dataset name`: is analogous to database name in databases, a category to group topics.
+`data name`: is analogous to the table in databases.
+`data format`: for example avro, json, etc.
+
+Use snake case.
+
+
+# Monitoring
+https://kafka.apache.org/documentation/#monitoring
+https://docs.confluent.io/platform/current/kafka/monitoring.html
+https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/
+
+
+# Security
+## Authentication
+- SSL Authentication: authentication using certificates
+- SASL/PLAINTEXT: username+password, weak but easy to setup
+- SASL/SCRAM: username+password, with salt, more secure.
+- Kerberos: strong but hard to setup
+- SASL/OAUTHBEARER: OAUTH 2 tokens
+
+## Authorization
+ACL (Access control lists)
+
+
+# advertised.listeners
+- Kafka has defined an advertised.listeners endpoint, which will be requested for consumers and producers to use.
+- This endpoint must be accessible to the client, otherwise communications will fail.
+
+
+# Advanced topics
+## Editing configuration
+~~~bash
+kafka-topics.sh --bootstrap-server localhost:9092 --topic some_topic --create --partitions 3 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --topic some_topic --describe
+
+# dynamic configuration
+kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name some_topic --describe
+kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name some_topic --alter --add-config min.insync.replicas=2
+kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name some_topic --alter --delete-config min.insync.replicas
+
+# cleanup
+kafka-topics.sh --bootstrap-server localhost:9092 --topic some_topic --delete
+~~~
+
+## Segments
+Offset data stored in files, grouped by segment files.
+- log.segment.bytes: total size before creating new segment
+- log.segment.ms: time until creating new segment
+
+## Log cleanup
+### Policies (log.cleanup.policy)
+- delete: delete based on time (default: 1 week) and based on size (default: unlimited)
+~~~md
+- log.retention.hours: default=168
+- log.retention.minutes
+- log.retention.ms
+- log.retention.bytes: default=-1
+~~~~
+- compact (used on `__consumer_offsets`): delete based on keys
+~~~md
+- segment.ms: default=7d
+- segment.bytes: default=1GB
+- min.compaction.lag.ms: default=0
+- delete.retention.ms: default=24h
+- min.cleanable.dirty.ratio: default=0.5
+~~~
+
+`log.cleaner.backoff.ms`: time to check for cleaning work.
+
+
+## Large messages
+Default limit is 1 MB per message.
+Can use:
+- Store large message in external system and reference that in Kafka messaeg
+- Configure Kafka to handle bigger sizes
+  - broker: message.max.bytes, replication.fetch.max.bytes
+  - topic: max.message.bytes
+  - consumer: max.partition.fetch.bytes
+  - producer: max.request.size
